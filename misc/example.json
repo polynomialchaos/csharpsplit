@@ -1,0 +1,69 @@
+{
+  "name": "javasplit",
+  "description": "A simple Java package for money pool split development.",
+  "currency": "Euro",
+  "members": [
+    {
+      "name": "member_1",
+      "stamp": "23.06.2021 07:53:55"
+    },
+    {
+      "name": "member_2",
+      "stamp": "23.06.2021 07:53:55"
+    }
+  ],
+  "purchases": [
+    {
+      "purchaser": "member_1",
+      "recipients": [
+        "member_1",
+        "member_2"
+      ],
+      "amount": 100.0,
+      "currency": "Euro",
+      "date": "23.06.2021 07:54:09",
+      "title": "purchase_1",
+      "stamp": "23.06.2021 07:54:12"
+    },
+    {
+      "purchaser": "member_1",
+      "recipients": [
+        "member_2"
+      ],
+      "amount": 100.0,
+      "currency": "Euro",
+      "date": "23.06.2021 07:54:21",
+      "title": "purchase_2",
+      "stamp": "23.06.2021 07:54:22"
+    },
+    {
+      "purchaser": "member_1",
+      "recipients": [
+        "member_1",
+        "member_2"
+      ],
+      "amount": 200.0,
+      "currency": "USD",
+      "date": "23.06.2021 07:57:19",
+      "title": "purchase_3",
+      "stamp": "23.06.2021 07:57:19"
+    }
+  ],
+  "transfers": [
+    {
+      "purchaser": "member_1",
+      "recipients": [
+        "member_1"
+      ],
+      "amount": 200.0,
+      "currency": "USD",
+      "date": "23.06.2021 07:57:19",
+      "title": "purchase_3",
+      "stamp": "23.06.2021 07:57:19"
+    }
+  ],
+  "exchange_rates": {
+    "USD": 1.19
+  },
+  "stamp": "23.06.2021 07:53:55"
+}

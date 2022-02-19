@@ -1,8 +1,8 @@
 class Purchase : Base
 {
     protected Group group;
-    protected Member purchaser;
-    protected Dictionary<string, Member> recipients;
+    protected Member purchaser = null!;
+    protected Dictionary<string, Member> recipients = null!;
     protected Double amount;
     protected Stamp date;
     protected string title;
@@ -70,7 +70,7 @@ class Purchase : Base
         tmp.Add("recipients", recipients.Keys);
         tmp.Add("amount", amount);
         tmp.Add("currency", currency.name);
-        tmp.Add("date", date);
+        tmp.Add("date", date.ToString());
         tmp.Add("title", title);
         return tmp;
     }

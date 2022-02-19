@@ -18,7 +18,7 @@ class Base
 
     public Dictionary<String, Object> ToDictionary() {
         Dictionary<String, Object> tmp = Serialize();
-        tmp.Add("stamp", time);
+        tmp.Add("stamp", time.ToString());
         return tmp;
     }
 
