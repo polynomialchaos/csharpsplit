@@ -2,13 +2,13 @@ class Purchase : Base
 {
     protected Group group;
     protected Member purchaser = null!;
-    protected Dictionary<string, Member> recipients = null!;
-    protected Double amount;
+    protected Dictionary<string, Member> recipients = new();
+    protected double amount;
     protected Stamp date;
     protected string title;
     protected Currency currency;
 
-    public Purchase(Group group, string purchaser, List<string> recipients, Double amount,
+    public Purchase(Group group, string purchaser, List<string> recipients, double amount,
             Stamp date, string title, Currency currency)
     {
         this.group = group;
@@ -22,12 +22,12 @@ class Purchase : Base
         Link();
     }
 
-    public Double getAmount()
+    public double getAmount()
     {
         return group.Exchange(amount, currency);
     }
 
-    public Double getAmountPerMember()
+    public double getAmountPerMember()
     {
         return getAmount() / NumberOfRecipients();
     }
@@ -44,7 +44,7 @@ class Purchase : Base
 
     protected virtual void Link()
     {
-        HashSet<Member> members = new HashSet<Member>(recipients.Values);
+        HashSet<Member> members = new(recipients.Values);
         members.Add(purchaser);
 
         foreach (Member member in members)
@@ -63,9 +63,9 @@ class Purchase : Base
         this.purchaser = group.GetMemberByName(purchaser);
     }
 
-    protected override Dictionary<String, Object> Serialize()
+    protected override Dictionary<string, Object> Serialize()
     {
-        Dictionary<String, Object> tmp = new Dictionary<String, Object>();
+        Dictionary<string, Object> tmp = new();
         tmp.Add("purchaser", purchaser.name);
         tmp.Add("recipients", recipients.Keys);
         tmp.Add("amount", amount);
@@ -85,13 +85,13 @@ class Purchase : Base
 
     public override string ToString()
     {
-        return String.Format("{0} ({1}) {2}: {3}{4} -> {5}", title, date,
+        return String.Format("{0} ({1}) {2}: {3:F2}{4} -> {5}", title, date,
             purchaser.name, amount, currency, String.Join(", ", recipients.Keys));
     }
 
     protected virtual void Unlink()
     {
-        HashSet<Member> members = new HashSet<Member>(recipients.Values);
+        HashSet<Member> members = new(recipients.Values);
         members.Add(purchaser);
 
         foreach (Member member in members)

@@ -2,7 +2,7 @@
 class Member : Base
 {
     public string name { get; private set; }
-    private List<Purchase> participations = new List<Purchase>();
+    private List<Purchase> participations = new();
 
     public Member(string name)
     {
@@ -38,9 +38,9 @@ class Member : Base
         participations.Remove(participation);
     }
 
-    protected override Dictionary<String, Object> Serialize()
+    protected override Dictionary<string, Object> Serialize()
     {
-        Dictionary<String, Object> tmp = new Dictionary<String, Object>();
+        Dictionary<string, Object> tmp = new();
         tmp.Add("name", name);
         return tmp;
     }

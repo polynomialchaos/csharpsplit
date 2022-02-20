@@ -18,20 +18,20 @@ public abstract class Enumeration<T, U> : IComparable
         return other == null ? 1 : value.CompareTo(((Enumeration<T, U>)other).value);
     }
 
-    public static V FromName<V>(T name) where V : Enumeration<T, U>, new()
+    public static V FromName<V>(T name) where V : Enumeration<T, U>
     {
         var matchingItem = Parse<V, T>(name, "name", item => item.name.Equals(name));
         return matchingItem;
     }
 
 
-    public static V FromValue<V>(U value) where V : Enumeration<T, U>, new()
+    public static V FromValue<V>(U value) where V : Enumeration<T, U>
     {
         var matchingItem = Parse<V, U>(value, "value", item => item.value.Equals(value));
         return matchingItem;
     }
 
-    public static IEnumerable<V> GetAll<V>() where V : Enumeration<T, U>, new()
+    public static IEnumerable<V> GetAll<V>() where V : Enumeration<T, U>
     {
         var type = typeof(V);
         FieldInfo[] fields = type.GetFields(
@@ -40,8 +40,7 @@ public abstract class Enumeration<T, U> : IComparable
 
         foreach (var info in fields)
         {
-            var instance = new V();
-            var locatedValue = info.GetValue(instance) as V;
+            var locatedValue = info.GetValue(null) as V;
 
             if (locatedValue != null)
             {
@@ -50,13 +49,13 @@ public abstract class Enumeration<T, U> : IComparable
         }
     }
 
-    private static V Parse<V, W>(W value, string description, Func<V, bool> predicate) where V : Enumeration<T, U>, new()
+    private static V Parse<V, W>(W value, string description, Func<V, bool> predicate) where V : Enumeration<T, U>
     {
         var matchingItem = GetAll<V>().FirstOrDefault(predicate);
 
         if (matchingItem == null)
         {
-            var message = string.Format("'{0}' is not a valvalue {1} in {2}", value, description, typeof(V));
+            var message = String.Format("'{0}' is not a value {1} in {2}", value, description, typeof(V));
             throw new ApplicationException(message);
         }
 
@@ -65,6 +64,6 @@ public abstract class Enumeration<T, U> : IComparable
 
     public override string? ToString()
     {
-        return name.ToString();
+        return value.ToString();
     }
 }

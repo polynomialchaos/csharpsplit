@@ -4,7 +4,7 @@ class Base
 
     public Base()
     {
-        time = new Stamp();
+        time = new();
     }
 
     public override string ToString()
@@ -12,17 +12,17 @@ class Base
         return String.Format("{0} ({1})", base.ToString(), time.ToString());
     }
 
-    protected virtual Dictionary<String, Object> Serialize() {
+    protected virtual Dictionary<string, Object> Serialize() {
         throw new NotImplementedException();
     }
 
-    public Dictionary<String, Object> ToDictionary() {
-        Dictionary<String, Object> tmp = Serialize();
+    public Dictionary<string, Object> ToDictionary() {
+        Dictionary<string, Object> tmp = Serialize();
         tmp.Add("stamp", time.ToString());
         return tmp;
     }
 
-    public static string ToDebugString(Dictionary<String, Object> dictionary) {
+    public static string ToDebugString(Dictionary<string, Object> dictionary) {
         return "{" +
             String.Join(",", dictionary.Select(it => it.Key + "=" + it.Value).ToArray()) +
         "}";
