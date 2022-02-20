@@ -2,7 +2,7 @@ using System.Text.Json;
 
 class Group : Base
 {
-    private string name = String.Empty;
+    public string name { get; private set; } = String.Empty;
     private string description = String.Empty;
     private Currency currency = Currency.USD;
     private Dictionary<Currency, double> exchange_rates = new();
@@ -103,7 +103,7 @@ class Group : Base
 
     public Member AddMember(string name)
     {
-        if (name.Trim().Length == 0)
+        if (String.IsNullOrWhiteSpace(name))
         {
             throw new Exception("Empty member name provided!");
         }
@@ -243,7 +243,7 @@ class Group : Base
 
         Console.WriteLine(mainrule);
         Console.WriteLine(String.Format("Summary for group: {0}", name));
-        if (description.Length > 0)
+        if (!String.IsNullOrWhiteSpace(description))
         {
             Console.WriteLine(description);
         }
