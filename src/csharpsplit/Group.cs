@@ -22,8 +22,9 @@ class Group : Base
         StreamReader reader = new(path);
         string json_string = reader.ReadToEnd();
 
-        var json_object = JsonSerializer.Deserialize<JsonElement>(json_string);
-        var json_root = FromJSON<Dictionary<string, JsonElement>>(json_object);
+        JsonElement json_object = JsonSerializer.Deserialize<JsonElement>(json_string);
+        Dictionary<string, JsonElement> json_root =
+            FromJSON<Dictionary<string, JsonElement>>(json_object);
 
         // group
         name = FromJSON<string>(json_root["name"]);
@@ -33,8 +34,9 @@ class Group : Base
         time.SetTime(FromJSON<string>(json_root["stamp"]));
 
         // exchange rates
-        var json_exchange_rates = FromJSON<Dictionary<string, double>>(json_root["exchange_rates"]);
-        foreach (var item in Currency.GetAll<Currency>())
+        Dictionary<string, double> json_exchange_rates =
+            FromJSON<Dictionary<string, double>>(json_root["exchange_rates"]);
+        foreach (Currency item in Currency.GetAll<Currency>())
         {
             if (json_exchange_rates.ContainsKey(item.name))
             {
@@ -43,19 +45,24 @@ class Group : Base
         }
 
         // members
-        var json_members = FromJSON<List<JsonElement>>(json_root["members"]);
-        foreach (var json_member_it in json_members)
+        List<JsonElement> json_members =
+            FromJSON<List<JsonElement>>(json_root["members"]);
+        foreach (JsonElement json_member_it in json_members)
         {
-            var json_member = FromJSON<Dictionary<string, string>>(json_member_it);
+            Dictionary<string, string> json_member =
+                FromJSON<Dictionary<string, string>>(json_member_it);
+
             Member tmp = AddMember(json_member["name"]);
             tmp.time.SetTime(json_member["stamp"]);
         }
 
         // purchases
-        var json_purchases = FromJSON<List<JsonElement>>(json_root["purchases"]);
-        foreach (var json_purchase_it in json_purchases)
+        List<JsonElement> json_purchases =
+            FromJSON<List<JsonElement>>(json_root["purchases"]);
+        foreach (JsonElement json_purchase_it in json_purchases)
         {
-            var json_purchase = FromJSON<Dictionary<string, JsonElement>>(json_purchase_it);
+            Dictionary<string, JsonElement> json_purchase =
+                FromJSON<Dictionary<string, JsonElement>>(json_purchase_it);
 
             string purchaser = FromJSON<string>(json_purchase["purchaser"]);
             List<string> recipients = FromJSON<List<string>>(json_purchase["recipients"]);
@@ -72,13 +79,15 @@ class Group : Base
         }
 
         // transfers
-        var json_transfers = FromJSON<List<JsonElement>>(json_root["transfers"]);
-        foreach (var json_transfer_it in json_transfers)
+        List<JsonElement> json_transfers =
+            FromJSON<List<JsonElement>>(json_root["transfers"]);
+        foreach (JsonElement json_transfer_it in json_transfers)
         {
-            var json_transfer = FromJSON<Dictionary<string, JsonElement>>(json_transfer_it);
+            Dictionary<string, JsonElement> json_transfer =
+                FromJSON<Dictionary<string, JsonElement>>(json_transfer_it);
 
             string transferr = FromJSON<string>(json_transfer["purchaser"]);
-            var recipients = FromJSON<List<string>>(json_transfer["recipients"]);
+            List<string> recipients = FromJSON<List<string>>(json_transfer["recipients"]);
             double amount = FromJSON<double>(json_transfer["amount"]);
             string date_string = FromJSON<string>(json_transfer["date"]);
             Stamp date = new(date_string);
@@ -222,7 +231,7 @@ class Group : Base
 
     private static IEnumerable<T> LazyReverse<T>(IList<T> items)
     {
-        for (var i = items.Count - 1; i >= 0; i--)
+        for (int i = items.Count - 1; i >= 0; i--)
             yield return items[i];
     }
 

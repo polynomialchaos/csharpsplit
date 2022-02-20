@@ -20,28 +20,24 @@ public abstract class Enumeration<T, U> : IComparable
 
     public static V FromName<V>(T name) where V : Enumeration<T, U>
     {
-        var matchingItem = Parse<V, T>(name, "name", item => item.name.Equals(name));
-        return matchingItem;
+        return Parse<V, T>(name, "name", item => item.name.Equals(name));
     }
-
 
     public static V FromValue<V>(U value) where V : Enumeration<T, U>
     {
-        var matchingItem = Parse<V, U>(value, "value", item => item.value.Equals(value));
-        return matchingItem;
+        return Parse<V, U>(value, "value", item => item.value.Equals(value));
     }
 
     public static IEnumerable<V> GetAll<V>() where V : Enumeration<T, U>
     {
-        var type = typeof(V);
+        Type type = typeof(V);
         FieldInfo[] fields = type.GetFields(
             BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly
         );
 
-        foreach (var info in fields)
+        foreach (FieldInfo info in fields)
         {
             var locatedValue = info.GetValue(null) as V;
-
             if (locatedValue != null)
             {
                 yield return locatedValue;
@@ -52,11 +48,11 @@ public abstract class Enumeration<T, U> : IComparable
     private static V Parse<V, W>(W value, string description, Func<V, bool> predicate) where V : Enumeration<T, U>
     {
         var matchingItem = GetAll<V>().FirstOrDefault(predicate);
-
         if (matchingItem == null)
         {
-            var message = String.Format("'{0}' is not a value {1} in {2}", value, description, typeof(V));
-            throw new ApplicationException(message);
+            throw new ApplicationException(String.Format(
+                "'{0}' is not a value {1} in {2}", value, description, typeof(V)
+            ));
         }
 
         return matchingItem;
