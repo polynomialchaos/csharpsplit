@@ -1,4 +1,4 @@
-﻿namespace cssplit
+﻿namespace CSharpSplit
 {
     class Program
     {

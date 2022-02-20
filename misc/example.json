@@ -1,6 +1,6 @@
 {
-    "name": "javasplit",
-    "description": "A simple Java package for money pool split development.",
+    "name": "csharpsplit",
+    "description": "A simple C# package for money pool split development.",
     "currency": "Euro",
     "members": [
         {
