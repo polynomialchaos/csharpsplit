@@ -1,23 +1,24 @@
 ﻿using System.CommandLine;
 
 namespace CSharpSplit
-{    class Program
+{
+    class Program
     {
         static void Main(string[] args)
         {
             Option<bool> member_option = new(
                     "--member",
-                    "Add member(s) to the group");
+                    "Add member(s) to the group.");
             member_option.AddAlias("-m");
 
             Option<bool> purchase_option = new(
                     "--purchase",
-                    "Add purchase(s) to the group");
+                    "Add purchase(s) to the group.");
             purchase_option.AddAlias("-p");
 
             Option<bool> transfer_option = new(
                     "--transfer",
-                    "Add transfer(s) to the group");
+                    "Add transfer(s) to the group.");
             transfer_option.AddAlias("-t");
 
             Argument<string> file_path_argument = new();
@@ -36,9 +37,12 @@ namespace CSharpSplit
             {
                 // group
                 Group group;
-                if (file_path != null) {
+                if (file_path != null)
+                {
                     group = new(file_path);
-                } else {
+                }
+                else
+                {
                     string inp_title = InputScanner.Get("Group title", "Untitled", a => a);
                     string inp_description = InputScanner.Get("Group description", "", a => a);
                     Currency inp_currency = InputScanner.Get("Group currency", Currency.Euro.name,
@@ -49,27 +53,35 @@ namespace CSharpSplit
                 }
 
                 // add member(s)
-                if (add_member || group.GetNumberOfMembers() == 0) {
-                    while (true) {
+                if (add_member || group.GetNumberOfMembers() == 0)
+                {
+                    while (true)
+                    {
                         string inp_name = InputScanner.Get("Member name (Enter to continue)",
                             "", a => a);
 
-                        if (String.IsNullOrWhiteSpace(inp_name)) {
+                        if (String.IsNullOrWhiteSpace(inp_name))
+                        {
                             break;
-                        } else {
+                        }
+                        else
+                        {
                             group.AddMember(inp_name);
                         }
                     }
                 }
 
                 // add purchase(s)
-                if (add_purchase) {
-                    if (group.GetNumberOfMembers() == 0) {
+                if (add_purchase)
+                {
+                    if (group.GetNumberOfMembers() == 0)
+                    {
                         throw new Exception("No members have been defined!");
                     }
 
                     List<string> members = group.GetMemberNames();
-                    while (true) {
+                    while (true)
+                    {
                         string inp_title = InputScanner.Get("Purchase title", "Untitled", a => a);
                         string inp_purchaser = InputScanner.Get("Purchaser", members[0],
                             members, a => a);
@@ -91,20 +103,24 @@ namespace CSharpSplit
                                 inp_amount, inp_date, inp_title, inp_currency);
 
                         if (!InputScanner.Get("Add another purchase", "n",
-                            new List<string>{"y", "n"}, a => a.ToLowerInvariant() == "y")) {
+                            new List<string> { "y", "n" }, a => a.ToLowerInvariant() == "y"))
+                        {
                             break;
                         }
                     }
                 }
 
                 // add transfer(s)
-                if (add_purchase) {
-                    if (group.GetNumberOfMembers() == 0) {
+                if (add_purchase)
+                {
+                    if (group.GetNumberOfMembers() == 0)
+                    {
                         throw new Exception("No members have been defined!");
                     }
 
                     List<string> members = group.GetMemberNames();
-                    while (true) {
+                    while (true)
+                    {
                         string inp_title = InputScanner.Get("Transfer title", "Untitled", a => a);
                         string inp_purchaser = InputScanner.Get("Purchaser", members[0],
                             members, a => a);
@@ -124,7 +140,8 @@ namespace CSharpSplit
                                 inp_amount, inp_date, inp_title, inp_currency);
 
                         if (!InputScanner.Get("Add another transfer", "n",
-                            new List<string>{"y", "n"}, a => a.ToLowerInvariant() == "y")) {
+                            new List<string> { "y", "n" }, a => a.ToLowerInvariant() == "y"))
+                        {
                             break;
                         }
                     }
@@ -134,7 +151,8 @@ namespace CSharpSplit
                 group.Print();
 
                 // store the group in the existing file or create a new one
-                if (file_path == null) {
+                if (file_path == null)
+                {
                     file_path = group.name.ToLowerInvariant().Replace(" ", "_");
                     file_path = InputScanner.Get("Provide file name", file_path, a => a);
                 }
