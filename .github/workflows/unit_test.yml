@@ -20,5 +20,4 @@ jobs:
       with:
         dotnet-version: '6.x'
     - name: Test with dotnet
-          run: |
-              dotnet test
+      run: dotnet test
