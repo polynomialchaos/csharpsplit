@@ -8,17 +8,17 @@ class Program
     {
         Option<bool> member_option = new(
                 "--member",
-                "Add member(s) to the group");
+                "Add member(s) to the group.");
         member_option.AddAlias("-m");
 
         Option<bool> purchase_option = new(
                 "--purchase",
-                "Add purchase(s) to the group");
+                "Add purchase(s) to the group.");
         purchase_option.AddAlias("-p");
 
         Option<bool> transfer_option = new(
                 "--transfer",
-                "Add transfer(s) to the group");
+                "Add transfer(s) to the group.");
         transfer_option.AddAlias("-t");
 
         Argument<string> file_path_argument = new();
@@ -111,7 +111,7 @@ class Program
             }
 
             // add transfer(s)
-            if (add_purchase)
+            if (add_transfer)
             {
                 if (group.GetNumberOfMembers() == 0)
                 {
