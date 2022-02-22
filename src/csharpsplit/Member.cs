@@ -23,7 +23,7 @@ namespace CSharpSplit;
 
 using CSharpSplit.Utils;
 
-class Member : Base
+public class Member : Base
 {
     public string name { get; private set; }
     private List<Purchase> participations = new();

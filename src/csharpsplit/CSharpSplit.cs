@@ -23,7 +23,7 @@ namespace CSharpSplit;
 
 using System.CommandLine;
 using CSharpSplit.Utils;
-class Program
+public class Program
 {
     static void Main(string[] args)
     {

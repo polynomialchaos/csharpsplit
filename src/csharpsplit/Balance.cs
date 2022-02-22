@@ -23,7 +23,7 @@ namespace CSharpSplit;
 
 using CSharpSplit.Utils;
 
-class Balance : Transfer
+public class Balance : Transfer
 {
     public Balance(Group group, string purchaser, string recipient, double amount,
             Stamp date, Currency currency) : base(group, "Pending balance", purchaser,

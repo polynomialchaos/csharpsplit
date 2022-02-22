@@ -24,7 +24,7 @@ namespace CSharpSplit;
 using System.Text.Json;
 using CSharpSplit.Utils;
 
-class Group : Base
+public class Group : Base
 {
     public string name { get; private set; } = String.Empty;
     private string description = String.Empty;
@@ -45,6 +45,7 @@ class Group : Base
     {
         StreamReader reader = new(path);
         string json_string = reader.ReadToEnd();
+        reader.Close();
 
         JsonElement json_object = JsonSerializer.Deserialize<JsonElement>(json_string);
         Dictionary<string, JsonElement> json_root =
@@ -314,6 +315,11 @@ class Group : Base
         }
 
         Console.WriteLine(mainrule);
+    }
+
+    public void SetExchangeRate(Currency currency, double rate)
+    {
+        exchange_rates[currency] = rate;
     }
 
     public void Save(string path)

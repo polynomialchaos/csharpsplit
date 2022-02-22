@@ -44,7 +44,7 @@ public class TestUtils
 
         // Test: ToDictionary()
         Dictionary<string, object> tmp = base_obj.ToDictionary();
-        Assert.True(tmp.ContainsKey("stamp"), "<stamp> not in dictionary");
+        Assert.True(tmp.ContainsKey("stamp"));
 
         // Test: ToString()
         Console.WriteLine(base_obj.ToString());
