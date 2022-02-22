@@ -1,3 +1,24 @@
+// MIT License
+
+// Copyright (c) 2022 Florian Eigentler
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 namespace CSharpSplit;
 
 using System.Text.Json;
@@ -56,7 +77,7 @@ class Group : Base
                 FromJSON<Dictionary<string, string>>(json_member_it);
 
             Member tmp = AddMember(json_member["name"]);
-            tmp.time.SetTime(json_member["stamp"]);
+            tmp.SetTime(json_member["stamp"]);
         }
 
         // purchases
@@ -77,7 +98,7 @@ class Group : Base
             Currency currency = Currency.FromName<Currency>(tmp);
 
             Purchase purchase = AddPurchase(title, purchaser, recipients, amount, currency, date);
-            purchase.time.SetTime(FromJSON<string>(json_purchase["stamp"]));
+            purchase.SetTime(FromJSON<string>(json_purchase["stamp"]));
         }
 
         // transfers
@@ -99,7 +120,7 @@ class Group : Base
 
             Transfer transfer = AddTransfer(title, purchaser, recipients[0],
                 amount, currency, date);
-            transfer.time.SetTime(FromJSON<string>(json_transfer["stamp"]));
+            transfer.SetTime(FromJSON<string>(json_transfer["stamp"]));
         }
     }
 
@@ -306,7 +327,7 @@ class Group : Base
         File.WriteAllText(path, jsonString);
     }
 
-    protected override Dictionary<string, Object> Serialize()
+    protected override Dictionary<string, object> Serialize()
     {
         Dictionary<string, double> exchange_rates = new();
         foreach (KeyValuePair<Currency, double> item in this.exchange_rates)
@@ -314,7 +335,7 @@ class Group : Base
             exchange_rates.Add(item.Key.name, item.Value);
         }
 
-        Dictionary<string, Object> tmp = new();
+        Dictionary<string, object> tmp = new();
         tmp.Add("name", name);
         tmp.Add("description", description);
         tmp.Add("currency", currency.name);

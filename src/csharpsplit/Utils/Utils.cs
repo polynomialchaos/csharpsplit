@@ -19,53 +19,19 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-namespace CSharpSplit;
+namespace CSharpSplit.Utils;
 
-using CSharpSplit.Utils;
-
-class Member : Base
+public static class Utilities
 {
-    public string name { get; private set; }
-    private List<Purchase> participations = new();
-
-    public Member(string name)
+    public static List<T> AtLeast1D<T>(T item)
     {
-        this.name = name;
+        List<T> list = new();
+        list.Add(item);
+        return list;
     }
 
-    public void AddParticipation(Purchase purchase)
+    public static List<T> AtLeast1D<T>(List<T> item)
     {
-        participations.Add(purchase);
-    }
-
-    public double GetBalance()
-    {
-        double balance = 0.0;
-        foreach (Purchase participation in participations)
-        {
-            if (participation.IsPurchaser(name))
-            {
-                balance += participation.getAmount();
-            }
-
-            if (participation.IsRecipient(name))
-            {
-                balance -= participation.getAmountPerMember();
-            }
-        }
-
-        return balance;
-    }
-
-    public void RemoveParticipation(Purchase participation)
-    {
-        participations.Remove(participation);
-    }
-
-    protected override Dictionary<string, object> Serialize()
-    {
-        Dictionary<string, object> tmp = new();
-        tmp.Add("name", name);
-        return tmp;
+        return item;
     }
 }

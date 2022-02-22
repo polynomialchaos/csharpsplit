@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26F34B69-9DD6-4854-A644-BF6631DB7263}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharpsplit", "src\csharpsplit\csharpsplit.csproj", "{EA368019-D1E8-49C3-AA34-E829D46FCD98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5B95677F-68FC-4E38-8318-D542FE65D54A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharpsplit.Tests", "test\csharpsplit.Tests\csharpsplit.Tests.csproj", "{0ACA9DF3-00B8-496F-AFEE-434A751FA1D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA368019-D1E8-49C3-AA34-E829D46FCD98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA368019-D1E8-49C3-AA34-E829D46FCD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA368019-D1E8-49C3-AA34-E829D46FCD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA368019-D1E8-49C3-AA34-E829D46FCD98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ACA9DF3-00B8-496F-AFEE-434A751FA1D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ACA9DF3-00B8-496F-AFEE-434A751FA1D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ACA9DF3-00B8-496F-AFEE-434A751FA1D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ACA9DF3-00B8-496F-AFEE-434A751FA1D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA368019-D1E8-49C3-AA34-E829D46FCD98} = {26F34B69-9DD6-4854-A644-BF6631DB7263}
+		{0ACA9DF3-00B8-496F-AFEE-434A751FA1D8} = {5B95677F-68FC-4E38-8318-D542FE65D54A}
+	EndGlobalSection
+EndGlobal
