@@ -1,3 +1,5 @@
+namespace CSharpSplit.Utils;
+
 using System.Globalization;
 
 class Stamp

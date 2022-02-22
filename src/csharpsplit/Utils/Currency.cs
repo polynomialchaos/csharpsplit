@@ -1,3 +1,5 @@
+namespace CSharpSplit.Utils;
+
 public class Currency : Enumeration<string, string>
 {
     public static readonly Currency Euro = new("Euro", "€");

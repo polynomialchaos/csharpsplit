@@ -1,3 +1,7 @@
+namespace CSharpSplit;
+
+using CSharpSplit.Utils;
+
 class Transfer : Purchase
 {
     public Transfer(Group group, string purchaser, string recipient, double amount,

@@ -1,3 +1,7 @@
+namespace CSharpSplit;
+
+using CSharpSplit.Utils;
+
 class Purchase : Base
 {
     protected Group group;

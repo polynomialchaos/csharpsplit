@@ -1,12 +1,16 @@
+namespace CSharpSplit.Utils;
+
 class InputScanner
 {
     public InputScanner() { }
 
-    public static T Get<T>(string description, Func<string, T> functor) {
+    public static T Get<T>(string description, Func<string, T> functor)
+    {
         return Get(description, null, null, functor);
     }
 
-    public static T Get<T>(string description, string default_value, Func<string, T> functor) {
+    public static T Get<T>(string description, string default_value, Func<string, T> functor)
+    {
         return Get(description, default_value, null, functor);
     }
 
@@ -14,11 +18,13 @@ class InputScanner
         List<string>? options, Func<string, T> functor)
     {
         string des_str = description;
-        if (default_value != null) {
+        if (default_value != null)
+        {
             des_str = String.Format("{0} [{1}]", des_str, default_value);
         }
 
-        if (options != null) {
+        if (options != null)
+        {
             des_str = String.Format("{0} ({1})", des_str, String.Join(",", options));
         }
 

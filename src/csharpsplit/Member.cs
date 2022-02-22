@@ -1,3 +1,6 @@
+namespace CSharpSplit;
+
+using CSharpSplit.Utils;
 
 class Member : Base
 {

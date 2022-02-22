@@ -1,3 +1,5 @@
+namespace CSharpSplit.Utils;
+
 using System.Reflection;
 
 public abstract class Enumeration<T, U> : IComparable

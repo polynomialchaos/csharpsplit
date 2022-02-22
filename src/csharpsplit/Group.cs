@@ -1,4 +1,7 @@
+namespace CSharpSplit;
+
 using System.Text.Json;
+using CSharpSplit.Utils;
 
 class Group : Base
 {
