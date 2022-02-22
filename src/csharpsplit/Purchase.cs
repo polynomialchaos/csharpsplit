@@ -12,8 +12,8 @@ class Purchase : Base
     protected string title;
     protected Currency currency;
 
-    public Purchase(Group group, string purchaser, List<string> recipients, double amount,
-            Stamp date, string title, Currency currency)
+    public Purchase(Group group, string title, string purchaser, List<string> recipients,
+        double amount, Currency currency, Stamp date)
     {
         this.group = group;
         SetPurchaser(purchaser);

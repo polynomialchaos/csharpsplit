@@ -99,8 +99,8 @@ class Program
                             new Stamp().ToString(),
                             a => new Stamp(a));
 
-                    group.AddPurchase(inp_purchaser, inp_recipients,
-                            inp_amount, inp_date, inp_title, inp_currency);
+                    group.AddPurchase(inp_purchaser, inp_title, inp_recipients,
+                            inp_amount, inp_currency, inp_date);
 
                     if (!InputScanner.Get("Add another purchase", "n",
                         new List<string> { "y", "n" }, a => a.ToLowerInvariant() == "y"))
@@ -136,8 +136,8 @@ class Program
                             new Stamp().ToString(),
                             a => new Stamp(a));
 
-                    group.AddTransfer(inp_purchaser, inp_recipient,
-                            inp_amount, inp_date, inp_title, inp_currency);
+                    group.AddTransfer(inp_purchaser, inp_title, inp_recipient,
+                            inp_amount, inp_currency, inp_date);
 
                     if (!InputScanner.Get("Add another transfer", "n",
                         new List<string> { "y", "n" }, a => a.ToLowerInvariant() == "y"))

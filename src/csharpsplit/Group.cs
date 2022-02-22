@@ -76,8 +76,7 @@ class Group : Base
             string tmp = FromJSON<string>(json_purchase["currency"]);
             Currency currency = Currency.FromName<Currency>(tmp);
 
-            Purchase purchase = AddPurchase(purchaser, recipients, amount,
-                date, title, currency);
+            Purchase purchase = AddPurchase(title, purchaser, recipients, amount, currency, date);
             purchase.time.SetTime(FromJSON<string>(json_purchase["stamp"]));
         }
 
@@ -89,7 +88,7 @@ class Group : Base
             Dictionary<string, JsonElement> json_transfer =
                 FromJSON<Dictionary<string, JsonElement>>(json_transfer_it);
 
-            string transferr = FromJSON<string>(json_transfer["purchaser"]);
+            string purchaser = FromJSON<string>(json_transfer["purchaser"]);
             List<string> recipients = FromJSON<List<string>>(json_transfer["recipients"]);
             double amount = FromJSON<double>(json_transfer["amount"]);
             string date_string = FromJSON<string>(json_transfer["date"]);
@@ -98,8 +97,8 @@ class Group : Base
             string tmp = FromJSON<string>(json_transfer["currency"]);
             Currency currency = Currency.FromName<Currency>(tmp);
 
-            Transfer transfer = AddTransfer(transferr, recipients[0], amount,
-                date, title, currency);
+            Transfer transfer = AddTransfer(title, purchaser, recipients[0],
+                amount, currency, date);
             transfer.time.SetTime(FromJSON<string>(json_transfer["stamp"]));
         }
     }
@@ -122,19 +121,19 @@ class Group : Base
         return member;
     }
 
-    public Purchase AddPurchase(string purchaser, List<string> recipients, double amount,
-            Stamp date, string title, Currency currency)
+    public Purchase AddPurchase(string title, string purchaser, List<string> recipients,
+        double amount, Currency currency, Stamp date)
     {
-        Purchase purchase = new(this, purchaser, recipients, amount, date, title, currency);
+        Purchase purchase = new(this, title, purchaser, recipients, amount, currency, date);
         purchases.Add(purchase);
 
         return purchase;
     }
 
-    public Transfer AddTransfer(string purchaser, string recipient, double amount,
-            Stamp date, string title, Currency currency)
+    public Transfer AddTransfer(string title, string purchaser, string recipient,
+        double amount, Currency currency, Stamp date)
     {
-        Transfer transfer = new(this, purchaser, recipient, amount, date, title, currency);
+        Transfer transfer = new(this, title, purchaser, recipient, amount, currency, date);
         transfers.Add(transfer);
 
         return transfer;
