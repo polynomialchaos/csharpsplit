@@ -9,8 +9,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -33,8 +33,8 @@ public class Purchase : Base
     protected string title;
     protected Currency currency;
 
-    public Purchase(Group group, string title, string purchaser, List<string> recipients,
-        double amount, Currency currency, Stamp date)
+    public Purchase(Group group, string title, string purchaser,
+        List<string> recipients, double amount, Currency currency, Stamp date)
     {
         this.group = group;
         SetPurchaser(purchaser);
@@ -110,8 +110,9 @@ public class Purchase : Base
 
     public override string ToString()
     {
-        return String.Format("{0} ({1}) {2}: {3:F2}{4} -> {5}", title, date,
-            purchaser.name, amount, currency, String.Join(", ", recipients.Keys));
+        return String.Format("{0} ({1}) {2}: {3:F2}{4} -> {5}",
+            title, date, purchaser.name, amount, currency,
+            String.Join(", ", recipients.Keys));
     }
 
     protected virtual void Unlink()

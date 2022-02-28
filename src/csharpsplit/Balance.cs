@@ -9,8 +9,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -25,9 +25,10 @@ using CSharpSplit.Utils;
 
 public class Balance : Transfer
 {
-    public Balance(Group group, string purchaser, string recipient, double amount,
-            Stamp date, Currency currency) : base(group, "Pending balance", purchaser,
-            recipient, amount, currency, date)
+    public Balance(Group group, string purchaser, string recipient,
+        double amount, Stamp date, Currency currency)
+        : base(group, "Pending balance", purchaser, recipient,
+            amount, currency, date)
     { }
 
     protected override void Link()
@@ -37,7 +38,8 @@ public class Balance : Transfer
     public void ToTransfer()
     {
         string recipient = recipients.Keys.First();
-        group.AddTransfer(title, purchaser.name, recipient, amount, currency, date);
+        group.AddTransfer(
+            title, purchaser.name, recipient, amount, currency, date);
     }
 
     protected override void Unlink()

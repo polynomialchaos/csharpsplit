@@ -9,8 +9,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -64,10 +64,14 @@ public class Program
             }
             else
             {
-                string inp_title = InputScanner.Get("Group title", "Untitled", a => a);
-                string inp_description = InputScanner.Get("Group description", "", a => a);
-                Currency inp_currency = InputScanner.Get("Group currency", Currency.Euro.name,
-                    Currency.GetAll<Currency>().ToList().ConvertAll(a => a.name),
+                string inp_title = InputScanner.Get(
+                    "Group title", "Untitled", a => a);
+                string inp_description = InputScanner.Get(
+                    "Group description", "", a => a);
+                Currency inp_currency = InputScanner.Get(
+                    "Group currency", Currency.Euro.name,
+                    Currency.GetAll<Currency>().ToList().ConvertAll(
+                        a => a.name),
                     a => Currency.FromName<Currency>(a));
 
                 group = new(inp_title, inp_description, inp_currency);
@@ -78,7 +82,8 @@ public class Program
             {
                 while (true)
                 {
-                    string inp_name = InputScanner.Get("Member name (Enter to continue)",
+                    string inp_name = InputScanner.Get(
+                        "Member name (Enter to continue)",
                         "", a => a);
 
                     if (String.IsNullOrWhiteSpace(inp_name))
@@ -103,28 +108,31 @@ public class Program
                 List<string> members = group.GetMemberNames();
                 while (true)
                 {
-                    string inp_title = InputScanner.Get("Purchase title", "Untitled", a => a);
-                    string inp_purchaser = InputScanner.Get("Purchaser", members[0],
-                        members, a => a);
-                    List<string> inp_recipients =
-                        InputScanner.Get("Purchase recipients (seperated by ;)",
+                    string inp_title = InputScanner.Get(
+                        "Purchase title", "Untitled", a => a);
+                    string inp_purchaser = InputScanner.Get(
+                        "Purchaser", members[0], members, a => a);
+                    List<string> inp_recipients = InputScanner.Get(
+                        "Purchase recipients (seperated by ;)",
                         String.Join(";", members), members,
                         a => a.Split(";").ToList());
-                    double inp_amount = InputScanner.Get("Purchase amount",
-                            a => Double.Parse(a));
+                    double inp_amount = InputScanner.Get(
+                        "Purchase amount", a => Double.Parse(a));
                     Currency inp_currency = InputScanner.Get("Group currency",
                         Currency.Euro.name,
-                        Currency.GetAll<Currency>().ToList().ConvertAll(a => a.name),
+                        Currency.GetAll<Currency>().ToList().ConvertAll(
+                            a => a.name),
                         a => Currency.FromName<Currency>(a));
-                    Stamp inp_date = InputScanner.Get("Purchase date",
-                            new Stamp().ToString(),
-                            a => new Stamp(a));
+                    Stamp inp_date = InputScanner.Get(
+                        "Purchase date", new Stamp().ToString(),
+                        a => new Stamp(a));
 
                     group.AddPurchase(inp_purchaser, inp_title, inp_recipients,
                             inp_amount, inp_currency, inp_date);
 
                     if (!InputScanner.Get("Add another purchase", "n",
-                        new List<string> { "y", "n" }, a => a.ToLowerInvariant() == "y"))
+                        new List<string> { "y", "n" },
+                        a => a.ToLowerInvariant() == "y"))
                     {
                         break;
                     }
@@ -142,26 +150,29 @@ public class Program
                 List<string> members = group.GetMemberNames();
                 while (true)
                 {
-                    string inp_title = InputScanner.Get("Transfer title", "Untitled", a => a);
-                    string inp_purchaser = InputScanner.Get("Purchaser", members[0],
-                        members, a => a);
-                    string inp_recipient = InputScanner.Get("Transfer recipient", members[0],
-                        members, a => a);
-                    double inp_amount = InputScanner.Get("Transfer amount",
-                            a => Double.Parse(a));
-                    Currency inp_currency = InputScanner.Get("Group currency",
-                        Currency.Euro.name,
-                        Currency.GetAll<Currency>().ToList().ConvertAll(a => a.name),
+                    string inp_title = InputScanner.Get(
+                        "Transfer title", "Untitled", a => a);
+                    string inp_purchaser = InputScanner.Get(
+                        "Purchaser", members[0], members, a => a);
+                    string inp_recipient = InputScanner.Get(
+                        "Transfer recipient", members[0], members, a => a);
+                    double inp_amount = InputScanner.Get(
+                        "Transfer amount", a => Double.Parse(a));
+                    Currency inp_currency = InputScanner.Get(
+                        "Group currency", Currency.Euro.name,
+                        Currency.GetAll<Currency>().ToList().ConvertAll(
+                            a => a.name),
                         a => Currency.FromName<Currency>(a));
-                    Stamp inp_date = InputScanner.Get("Transfer date",
-                            new Stamp().ToString(),
-                            a => new Stamp(a));
+                    Stamp inp_date = InputScanner.Get(
+                        "Transfer date", new Stamp().ToString(),
+                        a => new Stamp(a));
 
                     group.AddTransfer(inp_purchaser, inp_title, inp_recipient,
                             inp_amount, inp_currency, inp_date);
 
                     if (!InputScanner.Get("Add another transfer", "n",
-                        new List<string> { "y", "n" }, a => a.ToLowerInvariant() == "y"))
+                        new List<string> { "y", "n" },
+                        a => a.ToLowerInvariant() == "y"))
                     {
                         break;
                     }
@@ -175,7 +186,8 @@ public class Program
             if (file_path == null)
             {
                 file_path = group.name.ToLowerInvariant().Replace(" ", "_");
-                file_path = InputScanner.Get("Provide file name", file_path, a => a);
+                file_path = InputScanner.Get(
+                    "Provide file name", file_path + ".json", a => a);
             }
             group.Save(file_path);
         }, member_option, purchase_option, transfer_option, file_path_argument);

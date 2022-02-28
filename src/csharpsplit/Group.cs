@@ -9,8 +9,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -47,7 +47,8 @@ public class Group : Base
         string json_string = reader.ReadToEnd();
         reader.Close();
 
-        JsonElement json_object = JsonSerializer.Deserialize<JsonElement>(json_string);
+        JsonElement json_object =
+            JsonSerializer.Deserialize<JsonElement>(json_string);
         Dictionary<string, JsonElement> json_root =
             FromJSON<Dictionary<string, JsonElement>>(json_object);
 
@@ -90,7 +91,8 @@ public class Group : Base
                 FromJSON<Dictionary<string, JsonElement>>(json_purchase_it);
 
             string purchaser = FromJSON<string>(json_purchase["purchaser"]);
-            List<string> recipients = FromJSON<List<string>>(json_purchase["recipients"]);
+            List<string> recipients =
+                FromJSON<List<string>>(json_purchase["recipients"]);
             double amount = FromJSON<double>(json_purchase["amount"]);
             string date_string = FromJSON<string>(json_purchase["date"]);
             Stamp date = new(date_string);
@@ -98,7 +100,8 @@ public class Group : Base
             string tmp = FromJSON<string>(json_purchase["currency"]);
             Currency currency = Currency.FromName<Currency>(tmp);
 
-            Purchase purchase = AddPurchase(title, purchaser, recipients, amount, currency, date);
+            Purchase purchase = AddPurchase(
+                title, purchaser, recipients, amount, currency, date);
             purchase.SetTime(FromJSON<string>(json_purchase["stamp"]));
         }
 
@@ -111,7 +114,8 @@ public class Group : Base
                 FromJSON<Dictionary<string, JsonElement>>(json_transfer_it);
 
             string purchaser = FromJSON<string>(json_transfer["purchaser"]);
-            List<string> recipients = FromJSON<List<string>>(json_transfer["recipients"]);
+            List<string> recipients =
+                FromJSON<List<string>>(json_transfer["recipients"]);
             double amount = FromJSON<double>(json_transfer["amount"]);
             string date_string = FromJSON<string>(json_transfer["date"]);
             Stamp date = new(date_string);
@@ -143,19 +147,21 @@ public class Group : Base
         return member;
     }
 
-    public Purchase AddPurchase(string title, string purchaser, List<string> recipients,
-        double amount, Currency currency, Stamp date)
+    public Purchase AddPurchase(string title, string purchaser,
+        List<string> recipients, double amount, Currency currency, Stamp date)
     {
-        Purchase purchase = new(this, title, purchaser, recipients, amount, currency, date);
+        Purchase purchase = new(
+            this, title, purchaser, recipients, amount, currency, date);
         purchases.Add(purchase);
 
         return purchase;
     }
 
-    public Transfer AddTransfer(string title, string purchaser, string recipient,
-        double amount, Currency currency, Stamp date)
+    public Transfer AddTransfer(string title, string purchaser,
+        string recipient, double amount, Currency currency, Stamp date)
     {
-        Transfer transfer = new(this, title, purchaser, recipient, amount, currency, date);
+        Transfer transfer = new(
+            this, title, purchaser, recipient, amount, currency, date);
         transfers.Add(transfer);
 
         return transfer;
@@ -224,11 +230,13 @@ public class Group : Base
                     continue;
 
                 double sender_balance = sender.GetBalance() + bal_add[sender];
-                double receiver_balance = receiver.GetBalance() + bal_add[receiver];
+                double receiver_balance =
+                    receiver.GetBalance() + bal_add[receiver];
 
                 if (receiver_balance > 0.0)
                 {
-                    double bal = Math.Min(Math.Abs(sender_balance), receiver_balance);
+                    double bal = Math.Min(
+                        Math.Abs(sender_balance), receiver_balance);
                     bal_add[sender] += bal;
                     bal_add[receiver] -= bal;
 
@@ -273,7 +281,8 @@ public class Group : Base
         }
 
         Console.WriteLine(mainrule);
-        Console.WriteLine(String.Format(" * Turnover: {0:F2}{1}", GetTurnover(), currency.ToString()));
+        Console.WriteLine(String.Format(
+            " * Turnover: {0:F2}{1}", GetTurnover(), currency.ToString()));
 
         if (exchange_rates.Count > 0)
         {
@@ -329,7 +338,8 @@ public class Group : Base
             WriteIndented = true
         };
 
-        string jsonString = JsonSerializer.Serialize(this.ToDictionary(), options);
+        string jsonString =
+            JsonSerializer.Serialize(this.ToDictionary(), options);
         File.WriteAllText(path, jsonString);
     }
 
@@ -345,9 +355,12 @@ public class Group : Base
         tmp.Add("name", name);
         tmp.Add("description", description);
         tmp.Add("currency", currency.name);
-        tmp.Add("members", members.Values.ToList().ConvertAll(member => member.ToDictionary()));
-        tmp.Add("purchases", purchases.ConvertAll(purchase => purchase.ToDictionary()));
-        tmp.Add("transfers", transfers.ConvertAll(transfer => transfer.ToDictionary()));
+        tmp.Add("members", members.Values.ToList().ConvertAll(
+            member => member.ToDictionary()));
+        tmp.Add("purchases", purchases.ConvertAll(
+            purchase => purchase.ToDictionary()));
+        tmp.Add("transfers", transfers.ConvertAll(
+            transfer => transfer.ToDictionary()));
         tmp.Add("exchange_rates", exchange_rates);
         return tmp;
     }

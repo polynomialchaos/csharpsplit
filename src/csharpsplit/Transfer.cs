@@ -9,8 +9,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -25,8 +25,9 @@ using CSharpSplit.Utils;
 
 public class Transfer : Purchase
 {
-    public Transfer(Group group, string title, string purchaser, string recipient,
-        double amount, Currency currency, Stamp date) : base(group, title,
-            purchaser, Utilities.AtLeast1D(recipient), amount, currency, date)
+    public Transfer(Group group, string title, string purchaser,
+        string recipient, double amount, Currency currency, Stamp date)
+        : base(group, title, purchaser, Utilities.AtLeast1D(recipient),
+            amount, currency, date)
     { }
 }

@@ -9,8 +9,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -38,7 +38,8 @@ public abstract class Enumeration<T, U> : IComparable
 
     public int CompareTo(object? other)
     {
-        return other == null ? 1 : value.CompareTo(((Enumeration<T, U>)other).value);
+        return other == null ? 1 : value.CompareTo(
+            ((Enumeration<T, U>)other).value);
     }
 
     public static V FromName<V>(T name) where V : Enumeration<T, U>
@@ -55,7 +56,9 @@ public abstract class Enumeration<T, U> : IComparable
     {
         Type type = typeof(V);
         FieldInfo[] fields = type.GetFields(
-            BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly
+            BindingFlags.Public |
+            BindingFlags.Static |
+            BindingFlags.DeclaredOnly
         );
 
         foreach (FieldInfo info in fields)
@@ -68,7 +71,8 @@ public abstract class Enumeration<T, U> : IComparable
         }
     }
 
-    private static V Parse<V, W>(W value, string description, Func<V, bool> predicate) where V : Enumeration<T, U>
+    private static V Parse<V, W>(W value, string description,
+        Func<V, bool> predicate) where V : Enumeration<T, U>
     {
         var matchingItem = GetAll<V>().FirstOrDefault(predicate);
         if (matchingItem == null)
