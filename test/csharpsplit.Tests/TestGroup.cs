@@ -36,7 +36,7 @@ public class TestGroup
     public void TestGroupBuilder()
     {
         // Test: group construction with value
-        Group group = new Group("CSharpSplit",
+        Group group = new("CSharpSplit",
             "A C# package for money pool split development.", Currency.Euro);
         Assert.True(group.GetTurnover() == 0.0);
         group.SetExchangeRate(Currency.USD, 1.19);

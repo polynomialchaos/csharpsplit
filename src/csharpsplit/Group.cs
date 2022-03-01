@@ -61,7 +61,8 @@ public class Group : Base
 
         // exchange rates
         Dictionary<string, double> json_exchange_rates =
-            FromJSON<Dictionary<string, double>>(json_root["exchange_rates"]);
+            FromJSON<Dictionary<string, double>>(
+                json_root["exchange_rates"]);
         foreach (Currency item in Currency.GetAll<Currency>())
         {
             if (json_exchange_rates.ContainsKey(item.name))
@@ -88,7 +89,8 @@ public class Group : Base
         foreach (JsonElement json_purchase_it in json_purchases)
         {
             Dictionary<string, JsonElement> json_purchase =
-                FromJSON<Dictionary<string, JsonElement>>(json_purchase_it);
+                FromJSON<Dictionary<string, JsonElement>>(
+                    json_purchase_it);
 
             string purchaser = FromJSON<string>(json_purchase["purchaser"]);
             List<string> recipients =
@@ -111,7 +113,8 @@ public class Group : Base
         foreach (JsonElement json_transfer_it in json_transfers)
         {
             Dictionary<string, JsonElement> json_transfer =
-                FromJSON<Dictionary<string, JsonElement>>(json_transfer_it);
+                FromJSON<Dictionary<string, JsonElement>>(
+                    json_transfer_it);
 
             string purchaser = FromJSON<string>(json_transfer["purchaser"]);
             List<string> recipients =

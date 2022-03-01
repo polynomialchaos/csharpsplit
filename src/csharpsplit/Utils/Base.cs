@@ -48,7 +48,7 @@ public class Base
 
     protected virtual Dictionary<string, object> Serialize()
     {
-        Dictionary<string, object> hash_map = new Dictionary<string, object>();
+        Dictionary<string, object> hash_map = new();
         return hash_map;
     }
 
@@ -59,7 +59,8 @@ public class Base
         return tmp;
     }
 
-    public static string ToDebugString(Dictionary<string, object> dictionary)
+    public static string ToDebugString(
+        Dictionary<string, object> dictionary)
     {
         return "{" + String.Join(",",
             dictionary.Select(

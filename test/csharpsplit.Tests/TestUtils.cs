@@ -36,7 +36,7 @@ public class TestUtils
     public void TestBase()
     {
         // Test: construction
-        Base base_obj = new Base();
+        Base base_obj = new();
 
         // Test: set the time
         base_obj.SetTime(DateTime.Now);
@@ -68,9 +68,9 @@ public class TestUtils
         // Test: overload construction
         DateTime now = DateTime.Now;
 
-        Stamp stamp_1 = new Stamp();
-        Stamp stamp_2 = new Stamp(now);
-        Stamp stamp_3 = new Stamp(date_time_string);
+        Stamp stamp_1 = new();
+        Stamp stamp_2 = new(now);
+        Stamp stamp_3 = new(date_time_string);
 
         // Test: set short date string
         Console.WriteLine(stamp_1);
