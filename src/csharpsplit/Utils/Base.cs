@@ -46,21 +46,21 @@ public class Base
             "<{0} stamp={1}>", base.ToString(), time.ToString());
     }
 
-    protected virtual Dictionary<string, object> Serialize()
+    protected virtual OrderdDictionary<string, object> Serialize()
     {
-        Dictionary<string, object> hash_map = new();
+        OrderdDictionary<string, object> hash_map = new();
         return hash_map;
     }
 
-    public Dictionary<string, object> ToDictionary()
+    public OrderdDictionary<string, object> ToDictionary()
     {
-        Dictionary<string, object> tmp = Serialize();
+        OrderdDictionary<string, object> tmp = Serialize();
         tmp.Add("stamp", time.ToString());
         return tmp;
     }
 
     public static string ToDebugString(
-        Dictionary<string, object> dictionary)
+        OrderdDictionary<string, object> dictionary)
     {
         return "{" + String.Join(",",
             dictionary.Select(

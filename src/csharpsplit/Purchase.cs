@@ -27,7 +27,7 @@ public class Purchase : Base
 {
     protected Group group;
     protected Member purchaser = null!;
-    protected Dictionary<string, Member> recipients = new();
+    protected OrderdDictionary<string, Member> recipients = new();
     protected double amount;
     protected Stamp date;
     protected string title;
@@ -88,9 +88,9 @@ public class Purchase : Base
         this.purchaser = group.GetMemberByName(purchaser);
     }
 
-    protected override Dictionary<string, object> Serialize()
+    protected override OrderdDictionary<string, object> Serialize()
     {
-        Dictionary<string, object> tmp = new();
+        OrderdDictionary<string, object> tmp = new();
         tmp.Add("purchaser", purchaser.name);
         tmp.Add("recipients", recipients.Keys);
         tmp.Add("amount", amount);

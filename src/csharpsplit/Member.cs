@@ -62,9 +62,9 @@ public class Member : Base
         participations.Remove(participation);
     }
 
-    protected override Dictionary<string, object> Serialize()
+    protected override OrderdDictionary<string, object> Serialize()
     {
-        Dictionary<string, object> tmp = new();
+        OrderdDictionary<string, object> tmp = new();
         tmp.Add("name", name);
         return tmp;
     }

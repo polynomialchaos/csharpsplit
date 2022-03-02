@@ -29,8 +29,8 @@ public class Group : Base
     public string name { get; private set; } = String.Empty;
     private string description = String.Empty;
     private Currency currency = Currency.USD;
-    private Dictionary<Currency, double> exchange_rates = new();
-    private Dictionary<string, Member> members = new();
+    private OrderdDictionary<Currency, double> exchange_rates = new();
+    private OrderdDictionary<string, Member> members = new();
     private List<Purchase> purchases = new();
     private List<Transfer> transfers = new();
 
@@ -49,8 +49,8 @@ public class Group : Base
 
         JsonElement json_object =
             JsonSerializer.Deserialize<JsonElement>(json_string);
-        Dictionary<string, JsonElement> json_root =
-            FromJSON<Dictionary<string, JsonElement>>(json_object);
+        OrderdDictionary<string, JsonElement> json_root =
+            FromJSON<OrderdDictionary<string, JsonElement>>(json_object);
 
         // group
         name = FromJSON<string>(json_root["name"]);
@@ -60,8 +60,8 @@ public class Group : Base
         time.SetTime(FromJSON<string>(json_root["stamp"]));
 
         // exchange rates
-        Dictionary<string, double> json_exchange_rates =
-            FromJSON<Dictionary<string, double>>(
+        OrderdDictionary<string, double> json_exchange_rates =
+            FromJSON<OrderdDictionary<string, double>>(
                 json_root["exchange_rates"]);
         foreach (Currency item in Currency.GetAll<Currency>())
         {
@@ -76,8 +76,8 @@ public class Group : Base
             FromJSON<List<JsonElement>>(json_root["members"]);
         foreach (JsonElement json_member_it in json_members)
         {
-            Dictionary<string, string> json_member =
-                FromJSON<Dictionary<string, string>>(json_member_it);
+            OrderdDictionary<string, string> json_member =
+                FromJSON<OrderdDictionary<string, string>>(json_member_it);
 
             Member tmp = AddMember(json_member["name"]);
             tmp.SetTime(json_member["stamp"]);
@@ -88,8 +88,8 @@ public class Group : Base
             FromJSON<List<JsonElement>>(json_root["purchases"]);
         foreach (JsonElement json_purchase_it in json_purchases)
         {
-            Dictionary<string, JsonElement> json_purchase =
-                FromJSON<Dictionary<string, JsonElement>>(
+            OrderdDictionary<string, JsonElement> json_purchase =
+                FromJSON<OrderdDictionary<string, JsonElement>>(
                     json_purchase_it);
 
             string purchaser = FromJSON<string>(json_purchase["purchaser"]);
@@ -112,8 +112,8 @@ public class Group : Base
             FromJSON<List<JsonElement>>(json_root["transfers"]);
         foreach (JsonElement json_transfer_it in json_transfers)
         {
-            Dictionary<string, JsonElement> json_transfer =
-                FromJSON<Dictionary<string, JsonElement>>(
+            OrderdDictionary<string, JsonElement> json_transfer =
+                FromJSON<OrderdDictionary<string, JsonElement>>(
                     json_transfer_it);
 
             string purchaser = FromJSON<string>(json_transfer["purchaser"]);
@@ -219,7 +219,7 @@ public class Group : Base
             return x.GetBalance().CompareTo(y.GetBalance());
         });
 
-        Dictionary<Member, double> bal_add = new();
+        OrderdDictionary<Member, double> bal_add = new();
         foreach (Member member in members)
         {
             bal_add.Add(member, 0.0);
@@ -332,6 +332,7 @@ public class Group : Base
     public void SetExchangeRate(Currency currency, double rate)
     {
         exchange_rates[currency] = rate;
+        Console.WriteLine(exchange_rates.Keys);
     }
 
     public void Save(string path)
@@ -346,15 +347,15 @@ public class Group : Base
         File.WriteAllText(path, jsonString);
     }
 
-    protected override Dictionary<string, object> Serialize()
+    protected override OrderdDictionary<string, object> Serialize()
     {
-        Dictionary<string, double> exchange_rates = new();
+        OrderdDictionary<string, double> exchange_rates = new();
         foreach (KeyValuePair<Currency, double> item in this.exchange_rates)
         {
             exchange_rates.Add(item.Key.name, item.Value);
         }
 
-        Dictionary<string, object> tmp = new();
+        OrderdDictionary<string, object> tmp = new();
         tmp.Add("name", name);
         tmp.Add("description", description);
         tmp.Add("currency", currency.name);

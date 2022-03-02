@@ -72,7 +72,7 @@ public class TestGroup
         transfer.SetTime("23.06.2021 07:57:19");
 
         // Test: ToDictionary()
-        Dictionary<string, object> tmp = group.ToDictionary();
+        OrderdDictionary<string, object> tmp = group.ToDictionary();
         Assert.True(tmp.ContainsKey("stamp"));
 
         // Test: ToString()
@@ -86,7 +86,6 @@ public class TestGroup
         StreamReader reader_1 = new(path_1);
         string json_string_1 = reader_1.ReadToEnd();
         reader_1.Close();
-
 
         StreamReader reader_2 = new(path_2);
         string json_string_2 = reader_2.ReadToEnd();
