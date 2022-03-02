@@ -63,6 +63,20 @@ public class TestUtils
     }
 
     [Fact]
+    public void TestOrderdDictionary()
+    {
+        OrderdDictionary<string, int> test = new();
+        test.Add("1", 1);
+        test["1"] = 0;
+        test.Add("2", 2);
+        test.Add("3", 3);
+        test.Remove("2");
+        test.Add("4", 4);
+        test.Add("5", 5);
+        Console.WriteLine(test.ToString());
+    }
+
+    [Fact]
     public void TestStamp()
     {
         // Test: overload construction
