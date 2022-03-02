@@ -24,7 +24,7 @@ namespace CSharpSplit.Utils;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 
-public sealed class OrderdDictionary<TKey, TVal>
+public class OrderdDictionary<TKey, TVal>
     : IDictionary<TKey, TVal> where TKey : notnull
 {
     private Dictionary<TKey, TVal> dictionary;
@@ -144,13 +144,7 @@ public sealed class OrderdDictionary<TKey, TVal>
     public TVal this[TKey key]
     {
         get { return dictionary[key]; }
-        set
-        {
-            if (!ContainsKey(key))
-                dictionary_keys.Add(key);
-
-            dictionary[key] = value;
-        }
+        set { dictionary_keys.Add(key); dictionary[key] = value; }
     }
 
     public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TVal value)
