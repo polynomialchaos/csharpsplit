@@ -23,14 +23,14 @@ namespace CSharpSplit.Utils;
 
 public static class Utilities
 {
-    public static List<T> AtLeast1D<T>(T item)
+    public static ICollection<T> AtLeast1D<T>(T item)
     {
         List<T> list = new();
         list.Add(item);
         return list;
     }
 
-    public static List<T> AtLeast1D<T>(List<T> item)
+    public static ICollection<T> AtLeast1D<T>(ICollection<T> item)
     {
         return item;
     }

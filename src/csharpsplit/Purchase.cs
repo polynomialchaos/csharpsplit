@@ -33,8 +33,9 @@ public class Purchase : Base
     protected string title;
     protected Currency currency;
 
-    public Purchase(Group group, string title, string purchaser,
-        List<string> recipients, double amount, Currency currency, Stamp date)
+    public Purchase(Group group, string title,
+        string purchaser, ICollection<string> recipients,
+        double amount, Currency currency, Stamp date)
     {
         this.group = group;
         SetPurchaser(purchaser);
@@ -100,7 +101,7 @@ public class Purchase : Base
         return tmp;
     }
 
-    private void SetRecipients(List<string> recipients)
+    private void SetRecipients(ICollection<string> recipients)
     {
         foreach (string recipient in recipients)
         {

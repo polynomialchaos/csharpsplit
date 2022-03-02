@@ -122,7 +122,7 @@ public class TestUtils
     {
         // Test: AtLeast1D
         double value = 2.0;
-        List<double> tmp = Utilities.AtLeast1D(value);
+        ICollection<double> tmp = Utilities.AtLeast1D(value);
         tmp = Utilities.AtLeast1D(tmp);
     }
 }
