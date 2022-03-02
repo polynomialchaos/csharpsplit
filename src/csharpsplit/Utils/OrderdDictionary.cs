@@ -21,19 +21,12 @@
 // SOFTWARE.
 namespace CSharpSplit.Utils;
 
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-
-public sealed class OrderdDictionary<TKey, TVal>
-    : IDictionary<TKey, TVal> where TKey : notnull
+public sealed class OrderdDictionary<TKey, TVal> where TKey : notnull
 {
-    private Dictionary<TKey, TVal> dictionary;
+    private Dictionary<TKey, TVal> dictionary = new Dictionary<TKey, TVal>();
     private List<TKey> dictionary_keys = new();
 
-    public OrderdDictionary()
-    {
-        dictionary = new Dictionary<TKey, TVal>();
-    }
+    public OrderdDictionary() { }
 
     public void Add(TKey key, TVal value)
     {
@@ -49,12 +42,8 @@ public sealed class OrderdDictionary<TKey, TVal>
 
     public void Clear()
     {
+        dictionary_keys.Clear();
         dictionary.Clear();
-    }
-
-    public IEqualityComparer<TKey> Comparer
-    {
-        get { return dictionary.Comparer; }
     }
 
     public bool Contains(KeyValuePair<TKey, TVal> item)
@@ -83,17 +72,6 @@ public sealed class OrderdDictionary<TKey, TVal>
         get { return dictionary.Count; }
     }
 
-    public void CopyTo(KeyValuePair<TKey, TVal>[] array, int arrayIndex)
-    {
-        ((ICollection<KeyValuePair<TKey, TVal>>)dictionary)
-            .CopyTo(array, arrayIndex);
-    }
-
-    public void CopyTo(Array array, int index)
-    {
-        ((ICollection)dictionary).CopyTo(array, index);
-    }
-
     public IEnumerator<KeyValuePair<TKey, TVal>> GetEnumerator()
     {
         foreach (TKey key in dictionary_keys)
@@ -101,13 +79,6 @@ public sealed class OrderdDictionary<TKey, TVal>
             yield return new KeyValuePair<TKey, TVal>(key, this[key]);
         }
     }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public bool IsReadOnly { get; private set; }
 
     public ICollection<TKey> Keys
     {
@@ -151,11 +122,6 @@ public sealed class OrderdDictionary<TKey, TVal>
 
             dictionary[key] = value;
         }
-    }
-
-    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TVal value)
-    {
-        return dictionary.TryGetValue(key, out value);
     }
 
     public override string ToString()

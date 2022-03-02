@@ -44,7 +44,7 @@ public class TestUtils
         base_obj.SetTime(date_string);
 
         // Test: ToDictionary()
-        OrderdDictionary<string, object> tmp = base_obj.ToDictionary();
+        Dictionary<string, object> tmp = base_obj.ToDictionary();
         Assert.True(tmp.ContainsKey("stamp"));
 
         // Test: ToString()

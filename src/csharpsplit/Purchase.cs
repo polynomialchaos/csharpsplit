@@ -88,9 +88,9 @@ public class Purchase : Base
         this.purchaser = group.GetMemberByName(purchaser);
     }
 
-    protected override OrderdDictionary<string, object> Serialize()
+    protected override Dictionary<string, object> Serialize()
     {
-        OrderdDictionary<string, object> tmp = new();
+        Dictionary<string, object> tmp = new();
         tmp.Add("purchaser", purchaser.name);
         tmp.Add("recipients", recipients.Keys);
         tmp.Add("amount", amount);

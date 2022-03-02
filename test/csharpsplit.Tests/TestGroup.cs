@@ -72,7 +72,7 @@ public class TestGroup
         transfer.SetTime("23.06.2021 07:57:19");
 
         // Test: ToDictionary()
-        OrderdDictionary<string, object> tmp = group.ToDictionary();
+        Dictionary<string, object> tmp = group.ToDictionary();
         Assert.True(tmp.ContainsKey("stamp"));
 
         // Test: ToString()
