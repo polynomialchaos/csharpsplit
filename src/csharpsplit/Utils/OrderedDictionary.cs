@@ -59,8 +59,13 @@ public class OrderdDictionary<TKey, TVal>
 
     public bool Contains(KeyValuePair<TKey, TVal> item)
     {
-        TVal v;
-        return (dictionary.TryGetValue(item.Key, out v) && v.Equals(item.Key));
+        TVal? v;
+        if (dictionary.TryGetValue(item.Key, out v))
+        {
+            return v == null ? false : v.Equals(item.Value);
+        }
+
+        return false;
     }
 
     public bool ContainsKey(TKey key)
