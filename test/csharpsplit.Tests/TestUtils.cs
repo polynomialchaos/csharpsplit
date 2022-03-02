@@ -66,14 +66,19 @@ public class TestUtils
     public void TestOrderdDictionary()
     {
         OrderdDictionary<string, int> test = new();
-        test.Add("1", 1);
-        test["1"] = 0;
-        test.Add("2", 2);
-        test.Add("3", 3);
-        test.Remove("2");
-        test.Add("4", 4);
-        test.Add("5", 5);
+        for (int i = 0; i < 7; i++)
+        {
+            test.Add("k" + i, i);
+            if (i % 3 == 0)
+            {
+                test.Remove("k" + (i-1));
+            }
+        }
+
         Console.WriteLine(test.ToString());
+        Assert.True(
+            "{\"k0\":0,\"k1\":1,\"k3\":3,\"k4\":4,\"k6\":6}".Equals(
+                test.ToString()));
     }
 
     [Fact]
