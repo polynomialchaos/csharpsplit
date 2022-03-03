@@ -28,7 +28,7 @@ public class Group : Base
 {
     public string name { get; private set; } = String.Empty;
     private string description = String.Empty;
-    private Currency currency = Currency.USD;
+    public Currency currency { get; set; } = Currency.Euro;
     private OrderdDictionary<Currency, double> exchange_rates = new();
     private OrderdDictionary<string, Member> members = new();
     private List<Purchase> purchases = new();
@@ -332,7 +332,6 @@ public class Group : Base
     public void SetExchangeRate(Currency currency, double rate)
     {
         exchange_rates[currency] = rate;
-        Console.WriteLine(exchange_rates.Keys);
     }
 
     public void Save(string path)

@@ -27,6 +27,11 @@ public class Program
 {
     static void Main(string[] args)
     {
+        Option<bool> exchange_option = new(
+                "--exchange",
+                "Add exchange rate(s) to the group.");
+        exchange_option.AddAlias("-e");
+
         Option<bool> member_option = new(
                 "--member",
                 "Add member(s) to the group.");
@@ -45,16 +50,17 @@ public class Program
         Argument<string> file_path_argument = new();
         file_path_argument.Arity = ArgumentArity.ZeroOrOne;
 
-        RootCommand rootCommand = new("My sample app")
+        RootCommand rootCommand = new("CSharpSplit")
         {
+            exchange_option,
             member_option,
             purchase_option,
             transfer_option,
             file_path_argument
         };
 
-        rootCommand.SetHandler((bool add_member, bool add_purchase,
-            bool add_transfer, string file_path) =>
+        rootCommand.SetHandler((bool add_exchange, bool add_member,
+            bool add_purchase, bool add_transfer, string file_path) =>
         {
             // group
             Group group;
@@ -75,6 +81,35 @@ public class Program
                     a => Currency.FromName<Currency>(a));
 
                 group = new(inp_title, inp_description, inp_currency);
+            }
+
+            // add exchange(s)
+            if (add_exchange)
+            {
+                List<Currency> currencies =
+                    Currency.GetAll<Currency>().ToList().FindAll(
+                        it => it != group.currency
+                    );
+
+                while (currencies.Count > 0)
+                {
+                    Currency inp_currency = InputScanner.Get(
+                        "Exchange rate currency", currencies[0].name,
+                        currencies.ConvertAll(a => a.name),
+                        a => Currency.FromName<Currency>(a));
+                    double inp_rate = InputScanner.Get(
+                        String.Format("{0} exchange rate", inp_currency.name),
+                        a => Double.Parse(a));
+
+                    group.SetExchangeRate(inp_currency, inp_rate);
+
+                    if (!InputScanner.Get("Add another exchange rate", "n",
+                        new List<string> { "y", "n" },
+                        a => a.ToLowerInvariant() == "y"))
+                    {
+                        break;
+                    }
+                }
             }
 
             // add member(s)
@@ -118,8 +153,8 @@ public class Program
                         a => a.Split(";").ToList());
                     double inp_amount = InputScanner.Get(
                         "Purchase amount", a => Double.Parse(a));
-                    Currency inp_currency = InputScanner.Get("Group currency",
-                        Currency.Euro.name,
+                    Currency inp_currency = InputScanner.Get(
+                        "Purchase currency", group.currency.name,
                         Currency.GetAll<Currency>().ToList().ConvertAll(
                             a => a.name),
                         a => Currency.FromName<Currency>(a));
@@ -127,7 +162,7 @@ public class Program
                         "Purchase date", new Stamp().ToString(),
                         a => new Stamp(a));
 
-                    group.AddPurchase(inp_purchaser, inp_title, inp_recipients,
+                    group.AddPurchase(inp_title, inp_purchaser, inp_recipients,
                             inp_amount, inp_currency, inp_date);
 
                     if (!InputScanner.Get("Add another purchase", "n",
@@ -159,7 +194,7 @@ public class Program
                     double inp_amount = InputScanner.Get(
                         "Transfer amount", a => Double.Parse(a));
                     Currency inp_currency = InputScanner.Get(
-                        "Group currency", Currency.Euro.name,
+                        "Transfer currency", group.currency.name,
                         Currency.GetAll<Currency>().ToList().ConvertAll(
                             a => a.name),
                         a => Currency.FromName<Currency>(a));
@@ -167,7 +202,7 @@ public class Program
                         "Transfer date", new Stamp().ToString(),
                         a => new Stamp(a));
 
-                    group.AddTransfer(inp_purchaser, inp_title, inp_recipient,
+                    group.AddTransfer(inp_title, inp_purchaser, inp_recipient,
                             inp_amount, inp_currency, inp_date);
 
                     if (!InputScanner.Get("Add another transfer", "n",
@@ -190,7 +225,8 @@ public class Program
                     "Provide file name", file_path + ".json", a => a);
             }
             group.Save(file_path);
-        }, member_option, purchase_option, transfer_option, file_path_argument);
+        }, exchange_option, member_option, purchase_option,
+            transfer_option, file_path_argument);
 
         rootCommand.Invoke(args);
     }
