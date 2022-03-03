@@ -23,6 +23,8 @@ namespace CSharpSplit;
 
 using System.CommandLine;
 using CSharpSplit.Utils;
+
+/// <summary>Program class implementing main entry point.</summary>
 public class Program
 {
     static void Main(string[] args)

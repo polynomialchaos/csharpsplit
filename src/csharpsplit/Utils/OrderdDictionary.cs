@@ -21,6 +21,8 @@
 // SOFTWARE.
 namespace CSharpSplit.Utils;
 
+/// <summary>Generic OrderdDictionary class which keeps insertion
+/// order of items in mind.</summary>
 public sealed class OrderdDictionary<TKey, TVal> where TKey : notnull
 {
     private Dictionary<TKey, TVal> dictionary = new Dictionary<TKey, TVal>();

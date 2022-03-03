@@ -23,6 +23,7 @@ namespace CSharpSplit;
 
 using CSharpSplit.Utils;
 
+/// <summary>Purchase class.</summary>
 public class Purchase : Base
 {
     protected Group group;

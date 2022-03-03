@@ -21,6 +21,7 @@
 // SOFTWARE.
 namespace CSharpSplit.Utils;
 
+/// <summary>InputScanner class to retrieve user input.</summary>
 public class InputScanner
 {
     public InputScanner() { }

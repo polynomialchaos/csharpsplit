@@ -21,6 +21,7 @@
 // SOFTWARE.
 namespace CSharpSplit.Utils;
 
+/// <summary>Base class providing required methods.</summary>
 public class Base
 {
     public Stamp time { get; private set; }

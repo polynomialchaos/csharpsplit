@@ -21,6 +21,7 @@
 // SOFTWARE.
 namespace CSharpSplit.Utils;
 
+/// <summary>Currency enumeration class.</summary>
 public class Currency : Enumeration<string, string>
 {
     public static readonly Currency Euro = new("Euro", "€");

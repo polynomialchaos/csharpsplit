@@ -23,6 +23,7 @@ namespace CSharpSplit.Utils;
 
 using System.Globalization;
 
+/// <summary>Stamp class for storing and converting time stamps.</summary>
 public class Stamp
 {
     private static IFormatProvider culture_info = new CultureInfo("de-DE");

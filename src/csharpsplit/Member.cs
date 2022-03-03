@@ -23,6 +23,7 @@ namespace CSharpSplit;
 
 using CSharpSplit.Utils;
 
+/// <summary>Member class which also links purchases and transfers.</summary>
 public class Member : Base
 {
     public string name { get; private set; }

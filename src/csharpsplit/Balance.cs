@@ -23,6 +23,7 @@ namespace CSharpSplit;
 
 using CSharpSplit.Utils;
 
+/// <summary>Balance class for a temporary transfer (not linked).</summary>
 public class Balance : Transfer
 {
     public Balance(Group group, string purchaser, string recipient,

@@ -21,6 +21,7 @@
 // SOFTWARE.
 namespace CSharpSplit.Utils;
 
+/// <summary>Static Utilities class providing some utility methods.</summary>
 public static class Utilities
 {
     public static ICollection<T> AtLeast1D<T>(T item)

@@ -23,6 +23,7 @@ namespace CSharpSplit;
 
 using CSharpSplit.Utils;
 
+/// <summary>Transfer class.</summary>
 public class Transfer : Purchase
 {
     public Transfer(Group group, string title, string purchaser,

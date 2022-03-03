@@ -23,6 +23,7 @@ namespace CSharpSplit.Utils;
 
 using System.Reflection;
 
+/// <summary>Generic Enumeration class.</summary>
 public abstract class Enumeration<T, U> : IComparable
     where T : IComparable<T>
     where U : IComparable<U>
