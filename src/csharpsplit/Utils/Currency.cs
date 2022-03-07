@@ -26,5 +26,8 @@ public class Currency : Enumeration<string, string>
 {
     public static readonly Currency Euro = new("Euro", "€");
     public static readonly Currency USD = new("USD", "$");
+
+    /// <summary>Initialize a Currency Enumeration object
+    /// with name and symbol.</summary>
     private Currency(string name, string symbol) : base(name, symbol) { }
 }

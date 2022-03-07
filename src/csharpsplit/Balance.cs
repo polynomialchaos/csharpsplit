@@ -26,23 +26,28 @@ using CSharpSplit.Utils;
 /// <summary>Balance class for a temporary transfer (not linked).</summary>
 public class Balance : Transfer
 {
+    /// <summary>Initialize a Balance object.</summary>
     public Balance(Group group, string purchaser, string recipient,
-        double amount, Stamp date, Currency currency)
+        double amount, TimeStamp date, Currency currency)
         : base(group, "Pending balance", purchaser, recipient,
             amount, currency, date)
     { }
 
+    /// <summary>Do not link a Balance.</summary>
     protected override void Link()
     {
     }
 
-    public void ToTransfer()
+    /// <summary>Convert Balance to a linked Transfer.</summary>
+    /// <returns>A Transfer object.</returns>
+    public Transfer ToTransfer()
     {
         string recipient = recipients.Keys.First();
-        group.AddTransfer(
+        return group.AddTransfer(
             title, purchaser.name, recipient, amount, currency, date);
     }
 
+    /// <summary>Nothing to unlink in a Balance.</summary>
     protected override void Unlink()
     {
     }

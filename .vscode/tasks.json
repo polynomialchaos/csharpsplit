@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/csharpsplit.csproj",
+                "${workspaceFolder}/src/csharpsplit/csharpsplit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/csharpsplit.csproj",
+                "${workspaceFolder}/src/csharpsplit/csharpsplit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/csharpsplit.csproj"
+                "${workspaceFolder}/src/csharpsplit/csharpsplit.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

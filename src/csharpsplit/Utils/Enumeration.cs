@@ -24,38 +24,50 @@ namespace CSharpSplit.Utils;
 using System.Reflection;
 
 /// <summary>Generic Enumeration class.</summary>
-public abstract class Enumeration<T, U> : IComparable
-    where T : IComparable<T>
-    where U : IComparable<U>
+public abstract class Enumeration<TKey, TVal> : IComparable
+    where TKey : IComparable<TKey>
+    where TVal : IComparable<TVal>
 {
-    public T name { get; private set; }
-    public U value { get; private set; }
+    public TKey key { get; private set; }
+    public TVal value { get; private set; }
 
-    protected Enumeration(T name, U value)
+    /// <summary>Initialize an Enumeration object with key and value.</summary>
+    protected Enumeration(TKey key, TVal value)
     {
-        this.name = name;
+        this.key = key;
         this.value = value;
     }
 
+    /// <summary>Compares the object to another object.</summary>
+    /// <returns>A integer value.</returns>
     public int CompareTo(object? other)
     {
         return other == null ? 1 : value.CompareTo(
-            ((Enumeration<T, U>)other).value);
+            ((Enumeration<TKey, TVal>)other).value);
     }
 
-    public static V FromName<V>(T name) where V : Enumeration<T, U>
+    /// <summary>Gets the enumeration from a key.</summary>
+    /// <returns>An Enumeration item of type TKey and TVal.</returns>
+    public static TEnum FromName<TEnum>(TKey key)
+        where TEnum : Enumeration<TKey, TVal>
     {
-        return Parse<V, T>(name, "name", item => item.name.Equals(name));
+        return Parse<TEnum, TKey>(key, "key", item => item.key.Equals(key));
     }
 
-    public static V FromValue<V>(U value) where V : Enumeration<T, U>
+    /// <summary>Gets the enumeration from a value.</summary>
+    /// <returns>An Enumeration item of type TKey and TVal.</returns>
+    public static TEnum FromValue<TEnum>(TVal value)
+        where TEnum : Enumeration<TKey, TVal>
     {
-        return Parse<V, U>(value, "value", item => item.value.Equals(value));
+        return Parse<TEnum, TVal>(value, "value", item => item.value.Equals(value));
     }
 
-    public static IEnumerable<V> GetAll<V>() where V : Enumeration<T, U>
+    /// <summary>Gets the enumerator over all Enumeration items.</summary>
+    /// <returns>An Enumeration IEnumerable of type TKey and TVal.</returns>
+    public static IEnumerable<TEnum> GetAll<TEnum>()
+        where TEnum : Enumeration<TKey, TVal>
     {
-        Type type = typeof(V);
+        Type type = typeof(TEnum);
         FieldInfo[] fields = type.GetFields(
             BindingFlags.Public |
             BindingFlags.Static |
@@ -64,7 +76,7 @@ public abstract class Enumeration<T, U> : IComparable
 
         foreach (FieldInfo info in fields)
         {
-            var locatedValue = info.GetValue(null) as V;
+            var locatedValue = info.GetValue(null) as TEnum;
             if (locatedValue != null)
             {
                 yield return locatedValue;
@@ -72,20 +84,25 @@ public abstract class Enumeration<T, U> : IComparable
         }
     }
 
-    private static V Parse<V, W>(W value, string description,
-        Func<V, bool> predicate) where V : Enumeration<T, U>
+    /// <summary>Gets the first Enumeration item where the defined
+    /// predicate matches the item.</summary>
+    /// <returns>An Enumeration of type TKey and TVal.</returns>
+    private static TEnum Parse<TEnum, T>(T value, string description,
+        Func<TEnum, bool> predicate) where TEnum : Enumeration<TKey, TVal>
     {
-        var matchingItem = GetAll<V>().FirstOrDefault(predicate);
+        var matchingItem = GetAll<TEnum>().FirstOrDefault(predicate);
         if (matchingItem == null)
         {
             throw new ApplicationException(String.Format(
-                "'{0}' is not a value {1} in {2}", value, description, typeof(V)
+                "'{0}' is not a value {1} in {2}", value, description, typeof(TEnum)
             ));
         }
 
         return matchingItem;
     }
 
+    /// <summary>Converts the object to its equivalent string.</summary>
+    /// <returns>A string.</returns>
     public override string? ToString()
     {
         return value.ToString();

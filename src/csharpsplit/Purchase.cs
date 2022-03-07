@@ -30,13 +30,14 @@ public class Purchase : Base
     protected Member purchaser = null!;
     protected OrderdDictionary<string, Member> recipients = new();
     protected double amount;
-    protected Stamp date;
+    protected TimeStamp date;
     protected string title;
     protected Currency currency;
 
+    /// <summary>Initialize a Purchase object.</summary>
     public Purchase(Group group, string title,
         string purchaser, ICollection<string> recipients,
-        double amount, Currency currency, Stamp date)
+        double amount, Currency currency, TimeStamp date)
     {
         this.group = group;
         SetPurchaser(purchaser);
@@ -49,26 +50,35 @@ public class Purchase : Base
         Link();
     }
 
+    /// <summary>Gets the amount in group currency.</summary>
+    /// <returns>A double value.</returns>
     public double getAmount()
     {
         return group.Exchange(amount, currency);
     }
 
+    /// <summary>Gets the amount per member in group currency.</summary>
+    /// <returns>A double value.</returns>
     public double getAmountPerMember()
     {
         return getAmount() / NumberOfRecipients();
     }
 
-    public Boolean IsPurchaser(string name)
+    /// <summary>Checks the name to be the purchaser.</summary>
+    /// <returns>A boolean flag.</returns>
+    public bool IsPurchaser(string name)
     {
         return purchaser.name.Equals(name);
     }
 
-    public Boolean IsRecipient(string name)
+    /// <summary>Checks the name to be a recipients.</summary>
+    /// <returns>A boolean flag.</returns>
+    public bool IsRecipient(string name)
     {
         return recipients.ContainsKey(name);
     }
 
+    /// <summary>Link this Purchase in all members.</summary>
     protected virtual void Link()
     {
         HashSet<Member> members = new(recipients.Values);
@@ -80,28 +90,33 @@ public class Purchase : Base
         }
     }
 
+    /// <summary>Gets the number of recipients.</summary>
     public int NumberOfRecipients()
     {
         return recipients.Count;
     }
 
+    /// <summary>Set purchaser by name.</summary>
     private void SetPurchaser(string purchaser)
     {
         this.purchaser = group.GetMemberByName(purchaser);
     }
 
+    /// <summary>Serializes the object.</summary>
+    /// <returns>A Dictionary of type string and object.</returns>
     protected override Dictionary<string, object> Serialize()
     {
         Dictionary<string, object> tmp = new();
         tmp.Add("purchaser", purchaser.name);
         tmp.Add("recipients", recipients.Keys);
         tmp.Add("amount", amount);
-        tmp.Add("currency", currency.name);
+        tmp.Add("currency", currency.key);
         tmp.Add("date", date.ToString());
         tmp.Add("title", title);
         return tmp;
     }
 
+    /// <summary>Set recipients by ICollection of names.</summary>
     private void SetRecipients(ICollection<string> recipients)
     {
         foreach (string recipient in recipients)
@@ -110,6 +125,8 @@ public class Purchase : Base
         }
     }
 
+    /// <summary>Converts to an equivalent string.</summary>
+    /// <returns>A string.</returns>
     public override string ToString()
     {
         return String.Format("{0} ({1}) {2}: {3:F2}{4} -> {5}",
@@ -117,6 +134,7 @@ public class Purchase : Base
             String.Join(", ", recipients.Keys));
     }
 
+    /// <summary>Unlink this Purchase from all members.</summary>
     protected virtual void Unlink()
     {
         HashSet<Member> members = new(recipients.Values);

@@ -21,9 +21,11 @@
 // SOFTWARE.
 namespace CSharpSplit.Utils;
 
-/// <summary>Static Utilities class providing some utility methods.</summary>
+/// <summary>Utilities class providing helper methods.</summary>
 public static class Utilities
 {
+    /// <summary>Converts the provided scalar item to a Collection.</summary>
+    /// <returns>A ICollection of type T.</returns>
     public static ICollection<T> AtLeast1D<T>(T item)
     {
         List<T> list = new();
@@ -31,6 +33,8 @@ public static class Utilities
         return list;
     }
 
+    /// <summary>Returns the provided ICollection.</summary>
+    /// <returns>A ICollection of type T.</returns>
     public static ICollection<T> AtLeast1D<T>(ICollection<T> item)
     {
         return item;

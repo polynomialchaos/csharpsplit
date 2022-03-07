@@ -77,9 +77,9 @@ public class Program
                 string inp_description = InputScanner.Get(
                     "Group description", "", a => a);
                 Currency inp_currency = InputScanner.Get(
-                    "Group currency", Currency.Euro.name,
+                    "Group currency", Currency.Euro.key,
                     Currency.GetAll<Currency>().ToList().ConvertAll(
-                        a => a.name),
+                        a => a.key),
                     a => Currency.FromName<Currency>(a));
 
                 group = new(inp_title, inp_description, inp_currency);
@@ -96,11 +96,11 @@ public class Program
                 while (currencies.Count > 0)
                 {
                     Currency inp_currency = InputScanner.Get(
-                        "Exchange rate currency", currencies[0].name,
-                        currencies.ConvertAll(a => a.name),
+                        "Exchange rate currency", currencies[0].key,
+                        currencies.ConvertAll(a => a.key),
                         a => Currency.FromName<Currency>(a));
                     double inp_rate = InputScanner.Get(
-                        String.Format("{0} exchange rate", inp_currency.name),
+                        String.Format("{0} exchange rate", inp_currency.key),
                         a => Double.Parse(a));
 
                     group.SetExchangeRate(inp_currency, inp_rate);
@@ -156,13 +156,14 @@ public class Program
                     double inp_amount = InputScanner.Get(
                         "Purchase amount", a => Double.Parse(a));
                     Currency inp_currency = InputScanner.Get(
-                        "Purchase currency", group.currency.name,
+                        "Purchase currency", group.currency.key,
                         Currency.GetAll<Currency>().ToList().ConvertAll(
-                            a => a.name),
+                            a => a.key),
                         a => Currency.FromName<Currency>(a));
-                    Stamp inp_date = InputScanner.Get(
-                        "Purchase date", new Stamp().ToString(),
-                        a => new Stamp(a));
+                    TimeStamp inp_date = InputScanner.Get(
+                        "Purchase date",
+                        new TimeStamp().ToString(),
+                        a => new TimeStamp(a));
 
                     group.AddPurchase(inp_title, inp_purchaser, inp_recipients,
                             inp_amount, inp_currency, inp_date);
@@ -196,13 +197,14 @@ public class Program
                     double inp_amount = InputScanner.Get(
                         "Transfer amount", a => Double.Parse(a));
                     Currency inp_currency = InputScanner.Get(
-                        "Transfer currency", group.currency.name,
+                        "Transfer currency", group.currency.key,
                         Currency.GetAll<Currency>().ToList().ConvertAll(
-                            a => a.name),
+                            a => a.key),
                         a => Currency.FromName<Currency>(a));
-                    Stamp inp_date = InputScanner.Get(
-                        "Transfer date", new Stamp().ToString(),
-                        a => new Stamp(a));
+                    TimeStamp inp_date = InputScanner.Get(
+                        "Transfer date",
+                        new TimeStamp().ToString(),
+                        a => new TimeStamp(a));
 
                     group.AddTransfer(inp_title, inp_purchaser, inp_recipient,
                             inp_amount, inp_currency, inp_date);

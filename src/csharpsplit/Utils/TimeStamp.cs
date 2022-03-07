@@ -23,39 +23,39 @@ namespace CSharpSplit.Utils;
 
 using System.Globalization;
 
-/// <summary>Stamp class for storing and converting time stamps.</summary>
-public class Stamp
+/// <summary>Stamp class for storing time information.</summary>
+public class TimeStamp
 {
     private static IFormatProvider culture_info = new CultureInfo("de-DE");
     private static string fmt_date_time = "dd.MM.yyyy HH:mm:ss";
     private static string fmt_date = "dd.MM.yyyy";
-    private DateTime time;
+    public DateTime time { get; private set; }
 
-    public Stamp()
+    /// <summary>Initialize a TimeStamp object.</summary>
+    public TimeStamp()
     {
         SetTime(DateTime.Now);
     }
 
-    public Stamp(DateTime time)
+    /// <summary>Initialize a TimeStamp object from DateTime object.</summary>
+    public TimeStamp(DateTime time)
     {
         SetTime(time);
     }
 
-    public Stamp(string time_string)
+    /// <summary>Initialize a TimeStamp object from time string.</summary>
+    public TimeStamp(string time_string)
     {
         SetTime(time_string);
     }
 
-    public DateTime GetTime()
-    {
-        return time;
-    }
-
+    /// <summary>Sets the time from a DateTime object.</summary>
     public void SetTime(DateTime time)
     {
         this.time = time;
     }
 
+    /// <summary>Sets the time from a string.</summary>
     public void SetTime(string time_string)
     {
         try
@@ -65,17 +65,22 @@ public class Stamp
         }
         catch (System.Exception)
         {
-            time = DateTime.ParseExact(time_string, fmt_date, culture_info);
+            time = DateTime.ParseExact(
+                time_string, fmt_date, culture_info);
         }
     }
 
-    private Boolean IsStartOfDay()
+    /// <summary>Checks if the time is at start of the day (00:00).</summary>
+    /// <returns>A boolean flag.</returns>
+    private bool IsStartOfDay()
     {
         return (time.Hour == 0) && (time.Minute == 0) &&
             (time.Second == 0) && (time.Millisecond == 0);
 
     }
 
+    /// <summary>Converts to an equivalent string.</summary>
+    /// <returns>A string.</returns>
     public override string ToString()
     {
         return time.ToString(IsStartOfDay() ? fmt_date : fmt_date_time);

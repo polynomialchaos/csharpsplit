@@ -22,21 +22,27 @@
 namespace CSharpSplit.Utils;
 
 /// <summary>InputScanner class to retrieve user input.</summary>
-public class InputScanner
+public static class InputScanner
 {
-    public InputScanner() { }
-
+    /// <summary>Gets the user input for a given description.</summary>
+    /// <returns>The user input converted by the functor of type T.</returns>
     public static T Get<T>(string description, Func<string, T> functor)
     {
         return Get(description, null, null, functor);
     }
 
+    /// <summary>Gets the user input for a given description
+    /// and default value.</summary>
+    /// <returns>The user input converted by the functor of type T.</returns>
     public static T Get<T>(string description,
         string default_value, Func<string, T> functor)
     {
         return Get(description, default_value, null, functor);
     }
 
+    /// <summary>Gets the user input for a given description
+    /// , default value and possible options.</summary>
+    /// <returns>The user input converted by the functor of type T.</returns>
     public static T Get<T>(string description, string? default_value,
         List<string>? options, Func<string, T> functor)
     {

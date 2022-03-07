@@ -35,6 +35,8 @@ public class Group : Base
     private List<Purchase> purchases = new();
     private List<Transfer> transfers = new();
 
+    /// <summary>Initialize a Group object with
+    /// name, description and currency.</summary>
     public Group(string name, string description, Currency currency)
     {
         this.name = name;
@@ -42,6 +44,8 @@ public class Group : Base
         this.currency = currency;
     }
 
+    /// <summary>Initialize a Group object from
+    /// Json file path string.</summary>
     public Group(string path)
     {
         StreamReader reader = new(path);
@@ -58,7 +62,7 @@ public class Group : Base
         description = FromJSON<string>(json_root["description"]);
         string currency_string = FromJSON<string>(json_root["currency"]);
         currency = Currency.FromName<Currency>(currency_string);
-        time.SetTime(FromJSON<string>(json_root["stamp"]));
+        time_stamp.SetTime(FromJSON<string>(json_root["stamp"]));
 
         // exchange rates
         Dictionary<string, double> json_exchange_rates =
@@ -66,9 +70,9 @@ public class Group : Base
                 json_root["exchange_rates"]);
         foreach (Currency item in Currency.GetAll<Currency>())
         {
-            if (json_exchange_rates.ContainsKey(item.name))
+            if (json_exchange_rates.ContainsKey(item.key))
             {
-                this.exchange_rates.Add(item, json_exchange_rates[item.name]);
+                this.exchange_rates.Add(item, json_exchange_rates[item.key]);
             }
         }
 
@@ -98,7 +102,7 @@ public class Group : Base
                 FromJSON<List<string>>(json_purchase["recipients"]);
             double amount = FromJSON<double>(json_purchase["amount"]);
             string date_string = FromJSON<string>(json_purchase["date"]);
-            Stamp date = new(date_string);
+            TimeStamp date = new(date_string);
             string title = FromJSON<string>(json_purchase["title"]);
             string tmp = FromJSON<string>(json_purchase["currency"]);
             Currency currency = Currency.FromName<Currency>(tmp);
@@ -122,7 +126,7 @@ public class Group : Base
                 FromJSON<List<string>>(json_transfer["recipients"]);
             double amount = FromJSON<double>(json_transfer["amount"]);
             string date_string = FromJSON<string>(json_transfer["date"]);
-            Stamp date = new(date_string);
+            TimeStamp date = new(date_string);
             string title = FromJSON<string>(json_transfer["title"]);
             string tmp = FromJSON<string>(json_transfer["currency"]);
             Currency currency = Currency.FromName<Currency>(tmp);
@@ -133,6 +137,8 @@ public class Group : Base
         }
     }
 
+    /// <summary>Adds a member by name to the group.</summary>
+    /// <returns>A Member object.</returns>
     public Member AddMember(string name)
     {
         if (String.IsNullOrWhiteSpace(name))
@@ -151,8 +157,10 @@ public class Group : Base
         return member;
     }
 
+    /// <summary>Adds a purchase to the group.</summary>
+    /// <returns>A Purchase object.</returns>
     public Purchase AddPurchase(string title, string purchaser,
-        List<string> recipients, double amount, Currency currency, Stamp date)
+        List<string> recipients, double amount, Currency currency, TimeStamp date)
     {
         Purchase purchase = new(
             this, title, purchaser, recipients, amount, currency, date);
@@ -161,8 +169,10 @@ public class Group : Base
         return purchase;
     }
 
+    /// <summary>Adds a transfer to the group.</summary>
+    /// <returns>A Transfer object.</returns>
     public Transfer AddTransfer(string title, string purchaser,
-        string recipient, double amount, Currency currency, Stamp date)
+        string recipient, double amount, Currency currency, TimeStamp date)
     {
         Transfer transfer = new(
             this, title, purchaser, recipient, amount, currency, date);
@@ -171,6 +181,9 @@ public class Group : Base
         return transfer;
     }
 
+
+    /// <summary>Gets the exchange amount based on given currency.</summary>
+    /// <returns>A double value.</returns>
     public double Exchange(double amount, Currency currency)
     {
         if (currency.Equals(this.currency))
@@ -183,6 +196,8 @@ public class Group : Base
         }
     }
 
+    /// <summary>Deserializes a JsonElement.</summary>
+    /// <returns>A T object.</returns>
     private static T FromJSON<T>(JsonElement element)
     {
         var tmp = element.Deserialize<T>();
@@ -194,22 +209,31 @@ public class Group : Base
         return tmp;
     }
 
+    /// <summary>Gets a member by name.</summary>
+    /// <returns>A Member object.</returns>
     public Member GetMemberByName(string name)
     {
         return members[name];
     }
 
+    /// <summary>Gets member names.</summary>
+    /// <returns>A List of type string.</returns>
     public List<string> GetMemberNames()
     {
         return members.Keys.ToList();
     }
 
+
+    /// <summary>Gets the number of members.</summary>
+    /// <returns>A integer value.</returns>
     public int GetNumberOfMembers()
     {
         return members.Count;
     }
 
-    public List<Balance> GetPendingBalances()
+    /// <summary>Gets the list of pending balances.</summary>
+    /// <returns>A ICollection of type Balance.</returns>
+    public ICollection<Balance> GetPendingBalances()
     {
         List<Balance> balances = new();
 
@@ -245,7 +269,7 @@ public class Group : Base
                     bal_add[receiver] -= bal;
 
                     Balance balance = new(this, sender.name, receiver.name,
-                        bal, new Stamp(), currency);
+                        bal, new TimeStamp(), currency);
                     balances.Add(balance);
                 }
             }
@@ -254,6 +278,8 @@ public class Group : Base
         return balances;
     }
 
+    /// <summary>Gets the group turnover.</summary>
+    /// <returns>A double value.</returns>
     public double GetTurnover()
     {
         double turnover = 0.0;
@@ -265,12 +291,15 @@ public class Group : Base
         return turnover;
     }
 
+    /// <summary>Gets the Enumerable of a given ICollection.</summary>
+    /// <returns>A IEnumerable of type T.</returns>
     private static IEnumerable<T> LazyReverse<T>(IList<T> items)
     {
         for (int i = items.Count - 1; i >= 0; i--)
             yield return items[i];
     }
 
+    /// <summary>Prints the group objects.</summary>
     public void Print()
     {
         int length = 80;
@@ -330,11 +359,13 @@ public class Group : Base
         Console.WriteLine(mainrule);
     }
 
+    /// <summary>Sets the exchange rate for a given currency.</summary>
     public void SetExchangeRate(Currency currency, double rate)
     {
         exchange_rates[currency] = rate;
     }
 
+    /// <summary>Saves the group dictionary to a path.</summary>
     public void Save(string path)
     {
         JsonSerializerOptions options = new()
@@ -347,18 +378,20 @@ public class Group : Base
         File.WriteAllText(path, jsonString);
     }
 
+    /// <summary>Serializes the object.</summary>
+    /// <returns>A Dictionary of type string and object.</returns>
     protected override Dictionary<string, object> Serialize()
     {
         Dictionary<string, double> exchange_rates = new();
         foreach (KeyValuePair<Currency, double> item in this.exchange_rates)
         {
-            exchange_rates.Add(item.Key.name, item.Value);
+            exchange_rates.Add(item.Key.key, item.Value);
         }
 
         Dictionary<string, object> tmp = new();
         tmp.Add("name", name);
         tmp.Add("description", description);
-        tmp.Add("currency", currency.name);
+        tmp.Add("currency", currency.key);
         tmp.Add("members", members.Values.ToList().ConvertAll(
             member => member.ToDictionary()));
         tmp.Add("purchases", purchases.ConvertAll(

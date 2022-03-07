@@ -26,8 +26,10 @@ using CSharpSplit.Utils;
 /// <summary>Transfer class.</summary>
 public class Transfer : Purchase
 {
+    /// <summary>Initialize a Transfer object.</summary>
+
     public Transfer(Group group, string title, string purchaser,
-        string recipient, double amount, Currency currency, Stamp date)
+        string recipient, double amount, Currency currency, TimeStamp date)
         : base(group, title, purchaser, Utilities.AtLeast1D(recipient),
             amount, currency, date)
     { }

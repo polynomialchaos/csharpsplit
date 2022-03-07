@@ -56,8 +56,8 @@ public class TestUtils
     {
         foreach (Currency currency in Currency.GetAll<Currency>())
         {
-            Console.WriteLine(currency.name);
-            Currency.FromName<Currency>(currency.name);
+            Console.WriteLine(currency.key);
+            Currency.FromName<Currency>(currency.key);
             Currency.FromValue<Currency>(currency.value);
         }
     }
@@ -87,9 +87,9 @@ public class TestUtils
         // Test: overload construction
         DateTime now = DateTime.Now;
 
-        Stamp stamp_1 = new();
-        Stamp stamp_2 = new(now);
-        Stamp stamp_3 = new(date_time_string);
+        TimeStamp stamp_1 = new();
+        TimeStamp stamp_2 = new(now);
+        TimeStamp stamp_3 = new(date_time_string);
 
         // Test: set short date string
         Console.WriteLine(stamp_1);
@@ -97,7 +97,7 @@ public class TestUtils
         Console.WriteLine(stamp_1);
 
         // Test: get time object
-        DateTime time = stamp_2.GetTime();
+        DateTime time = stamp_2.time;
         Assert.True(time.Equals(now));
 
         // Test: ToString()

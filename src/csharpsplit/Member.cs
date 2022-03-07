@@ -63,6 +63,8 @@ public class Member : Base
         participations.Remove(participation);
     }
 
+    /// <summary>Serializes the object.</summary>
+    /// <returns>A Dictionary of type string and object.</returns>
     protected override Dictionary<string, object> Serialize()
     {
         Dictionary<string, object> tmp = new();

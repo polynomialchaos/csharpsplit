@@ -52,23 +52,27 @@ public class TestGroup
         // Test: add purchases
         Purchase purchase = group.AddPurchase("purchase_1", "member_1",
                 new List<string>{"member_1", "member_2"},
-                100.0, Currency.Euro, new Stamp("23.06.2021 07:54:09"));
+                100.0, Currency.Euro,
+                new TimeStamp("23.06.2021 07:54:09"));
         purchase.SetTime("23.06.2021 07:54:12");
 
         purchase = group.AddPurchase("purchase_2", "member_1",
                 new List<string>{"member_2"},
-                100.0, Currency.Euro, new Stamp("23.06.2021 07:54:21"));
+                100.0, Currency.Euro,
+                new TimeStamp("23.06.2021 07:54:21"));
         purchase.SetTime("23.06.2021 07:54:22");
 
         purchase = group.AddPurchase("purchase_3", "member_1",
                 new List<string>{"member_1", "member_2"},
-                200.0, Currency.USD, new Stamp("23.06.2021 07:57:19"));
+                200.0, Currency.USD,
+                new TimeStamp("23.06.2021 07:57:19"));
         purchase.SetTime("23.06.2021 07:57:19");
 
         // Test: add purchases
         Transfer transfer = group.AddTransfer(
                 "transfer_1", "member_1", "member_1",
-                200.0, Currency.USD, new Stamp("23.06.2021 07:57:19"));
+                200.0, Currency.USD,
+                new TimeStamp("23.06.2021 07:57:19"));
         transfer.SetTime("23.06.2021 07:57:19");
 
         // Test: ToDictionary()
