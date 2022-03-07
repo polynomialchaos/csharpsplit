@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.cs" />
+    <Compile Include="..\AssemblyInfo.cs" />
   </ItemGroup>
 
 </Project>

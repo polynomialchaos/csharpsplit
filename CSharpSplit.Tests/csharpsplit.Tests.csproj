@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\csharpsplit\csharpsplit.csproj" />
+    <ProjectReference Include="..\CSharpSplit\csharpsplit.csproj" />
   </ItemGroup>
 
 </Project>
