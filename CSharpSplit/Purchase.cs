@@ -91,15 +91,10 @@ public class Purchase : Base
     }
 
     /// <summary>Gets the number of recipients.</summary>
+    /// <returns>A integer flag.</returns>
     public int NumberOfRecipients()
     {
         return recipients.Count;
-    }
-
-    /// <summary>Set purchaser by name.</summary>
-    private void SetPurchaser(string purchaser)
-    {
-        this.purchaser = group.GetMemberByName(purchaser);
     }
 
     /// <summary>Serializes the object.</summary>
@@ -114,6 +109,12 @@ public class Purchase : Base
         tmp.Add("date", date.ToString());
         tmp.Add("title", title);
         return tmp;
+    }
+
+    /// <summary>Set purchaser by name.</summary>
+    private void SetPurchaser(string purchaser)
+    {
+        this.purchaser = group.GetMemberByName(purchaser);
     }
 
     /// <summary>Set recipients by ICollection of names.</summary>

@@ -23,7 +23,7 @@ namespace CSharpSplit.Utils;
 
 using System.Globalization;
 
-/// <summary>Stamp class for storing time information.</summary>
+/// <summary>TimeStamp class for storing time information.</summary>
 public class TimeStamp
 {
     private static IFormatProvider culture_info = new CultureInfo("de-DE");

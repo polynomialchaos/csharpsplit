@@ -25,7 +25,7 @@ using System.Text.Json;
 using CSharpSplit.Utils;
 
 /// <summary>Group class.</summary>
-public class Group : Base
+public sealed class Group : Base
 {
     public string name { get; private set; } = String.Empty;
     private string description = String.Empty;

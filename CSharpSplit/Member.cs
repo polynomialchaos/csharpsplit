@@ -29,16 +29,20 @@ public class Member : Base
     public string name { get; private set; }
     private List<Purchase> participations = new();
 
+    /// <summary>Initialize a Member object.</summary>
     public Member(string name)
     {
         this.name = name;
     }
 
+    /// <summary>Adds a purchase to the participation list.</summary>
     public void AddParticipation(Purchase purchase)
     {
         participations.Add(purchase);
     }
 
+    /// <summary>Gets the balance of the member.</summary>
+    /// <returns>A Double value.</returns>
     public double GetBalance()
     {
         double balance = 0.0;
@@ -58,6 +62,7 @@ public class Member : Base
         return balance;
     }
 
+    /// <summary>Removes a purchase from the participation list.</summary>
     public void RemoveParticipation(Purchase participation)
     {
         participations.Remove(participation);
